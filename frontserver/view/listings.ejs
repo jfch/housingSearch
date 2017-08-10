@@ -1,0 +1,428 @@
+<%- include('partials/header') %>
+<html ng-app="myApp" ng-controller="myCtrl">
+ <script type="text/javascript">
+    window.onload = function(){
+    }
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+        var app = angular.module("myApp", []);
+
+        app.filter('capitalize', function() {
+            return function(input) {
+              return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+            }
+        });
+
+        app.filter('convertDate', function() {
+            return function(input) {
+              return (!!input) ?  input.getMonth()+1 + '/' + (input.getDate()+1) + '/' +  input.getFullYear() : '';
+            }
+        });
+
+
+        app.controller("myCtrl", function($scope, $window) {  
+          
+            var docs = <%- docs %>; 
+            var doc = docs.docs;
+            //alert(docs.docs[0].image);
+            $scope.test1 = "test OK";
+            $scope.doc = doc;
+            syncFeatures();
+
+            if($window.localStorage.getItem('optSort') == undefined){
+                $scope.selectVal = 'default';
+            }else{
+                $scope.selectVal = $window.localStorage.getItem('optSort');
+            }    
+
+                 
+
+            $scope.sortChange = function(x){
+                $window.localStorage.setItem('optSort',x)
+                //window.location.reload();
+                if(x == 'bedroomsort'){
+                    $scope.doc.sort(function(a,b) {return (a.bedroom > b.bedroom) ? 1 : ((b.bedroom > a.bedroom) ? -1 : 0);} );
+                    syncFeatures();
+                }
+                if(x == 'pricesort'){
+                    $scope.doc.sort(function(a,b) {return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);} );
+                    syncFeatures();
+                }
+                if(x == 'default'){
+                    $scope.doc.sort(function(a,b) {return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0);} );
+                    syncFeatures();
+                }
+            }
+            if($scope.selectVal == 'bedroomsort'){
+                    $scope.doc.sort(function(a,b) {return (a.bedroom > b.bedroom) ? 1 : ((b.bedroom > a.bedroom) ? -1 : 0);} );
+                    syncFeatures();
+                }
+                if($scope.selectVal == 'pricesort'){
+                    $scope.doc.sort(function(a,b) {return (a.price > b.price) ? 1 : ((b.price > a.price) ? -1 : 0);} );
+                    syncFeatures();
+                }
+                if($scope.selectVal == 'default'){
+                    $scope.doc.sort(function(a,b) {return (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0);} );
+                    syncFeatures();
+                }
+            
+
+            $scope.typeHouse = 'typeHouseFalse' 
+            $scope.typeApt = 'typeAptFalse' 
+            $scope.typeGarage = 'typeGarageFalse' 
+            $scope.typeSharedroom = 'typeSharedroomFalse'
+            $scope.bedroomOne = 'bedroomOneFalse'
+            $scope.bedroomTwo = 'bedroomTwoFalse'
+            $scope.bedroomThree = 'bedroomThreeFalse'
+            $scope.bedroomFour = 'bedroomFourFalse'
+            $scope.citySJ = 'citySJFalse'
+            $scope.citySC = 'citySCFalse'
+            $scope.cityMV = 'cityMVFalse'
+            $scope.cityFR = 'cityFRFalse'
+
+            $scope.checkAll = function(x){
+                var clonedDoc = JSON.parse(JSON.stringify(doc)) //deep copy array
+                if($scope.typeHouse == 'typeHouseFalse' && $scope.typeApt == 'typeAptFalse' && $scope.typeGarage == 'typeGarageFalse' && $scope.typeSharedroom == 'typeSharedroomFalse'){
+
+                }else{
+                    if($scope.typeHouse == 'typeHouseFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].type=='house'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }
+                    }
+                    if($scope.typeApt == 'typeAptFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].type=='apartment'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.typeGarage == 'typeGarageFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].type=='garage'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.typeSharedroom == 'typeSharedroomFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].type=='sharedroom'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                }
+                if($scope.bedroomOne == 'bedroomOneFalse' && $scope.bedroomTwo == 'bedroomTwoFalse' && $scope.bedroomThree == 'bedroomThreeFalse' && $scope.bedroomFour == 'bedroomFourFalse'){
+
+                }else{
+                    if($scope.bedroomOne == 'bedroomOneFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].bedroom==1){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }
+                    }
+                    if($scope.bedroomTwo == 'bedroomTwoFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].bedroom==2){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.bedroomThree == 'bedroomThreeFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].bedroom==3){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.bedroomFour == 'bedroomFourFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].bedroom==4){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                }
+                 if($scope.citySJ == 'citySJFalse' && $scope.citySC == 'citySCFalse' && $scope.cityMV == 'cityMVFalse' && $scope.cityFR == 'cityFRFalse'){
+
+                }else{
+           
+                    if($scope.citySJ == 'citySJFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].address.city=='San Jose' || clonedDoc[i].address.city=='san jose'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }
+                    }
+                    if($scope.citySC == 'citySCFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].address.city=='Santa Clara'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.cityMV == 'cityMVFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].address.city=='Mountain View'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                    if($scope.cityFR == 'cityFRFalse'){
+                        var i = clonedDoc.length;
+                        while (i--) {
+                           if(clonedDoc[i].address.city=='Fremont'){
+                                clonedDoc.splice(i, 1);  //remove it from clonedDoc Arr;
+                            }
+                        }                    
+                    }
+                }
+                
+                $scope.doc = clonedDoc;
+                syncFeatures();
+            }
+            
+
+            function syncFeatures(){
+                var statusImg=[], ratingImg=[], titleStatus=[];
+                var isDuplicateImg = [], isDuplicateAdd = [], detailUrl =[] , date = [];
+                for(var i in $scope.doc) 
+                {    
+                    date[i] = new Date($scope.doc[i].availableOn);
+                    var score=$scope.doc[i].rating;
+                    isDuplicateImg[i] = false;
+                    isDuplicateAdd[i] = false;
+                    if($scope.doc[i].duplicatedImgExisted != undefined){
+                        isDuplicateImg[i] = $scope.doc[i].duplicatedImgExisted
+                    }
+                    if($scope.doc[i].duplicatedAddExisted != undefined){
+                        isDuplicateAdd[i] = $scope.doc[i].duplicatedAddExisted
+                    }
+                    var score=$scope.doc[i].rating;
+                    detailUrl[i] = '/detail/show/' + $scope.doc[i]._id;
+                    if(score == -1){
+                        statusImg[i] = 'status-ongoing.png';
+                        ratingImg[i] = 'rating-empty.png';
+                        titleStatus[i] = 'FraudRatingBeingProcessed';
+                    }else{
+                        if(isDuplicateImg[i] || isDuplicateAdd[i]){
+                            statusImg[i] = 'status-caution.png'
+                            titleStatus[i] = 'Be-Cautious';
+                        }else{
+                            statusImg[i] = 'status-safe.png'
+                            titleStatus[i] = 'Safe-Home';
+                        }
+                        if(score<1.0){    
+                            ratingImg[i] = 'rating-5.png';                            
+                        }else if(score<2.0){
+                            ratingImg[i] = 'rating-4.png';
+                        }else if(score<3.0){
+                            ratingImg[i] = 'rating-3.png';
+                        }else if(score<4.0){
+                            ratingImg[i] = 'rating-2.png';
+                        }else{
+                            ratingImg[i] = 'rating-1.png';                           
+                        }
+                    }
+                }//end for
+                $scope.ratingImg = ratingImg;
+                $scope.statusImg = statusImg;                    
+                $scope.titleStatus = titleStatus;
+                $scope.isDuplicateImg = isDuplicateImg;
+                $scope.isDuplicateAdd = isDuplicateAdd;
+                $scope.detailUrl = detailUrl;
+                $scope.date = date;
+            }
+
+        });  
+
+           
+
+            // $scope.get_tweet = function(a){
+            //     alert(a.tweets);
+            //     $scope.tweet_info =a.tweets;
+            // }
+
+</script>
+
+
+<div class="" style="height: 8px; background-color: green"></div> 
+<div class="" style="height: 8px;"></div> 
+<div class="container" style="">
+
+    <div class="">   <!-- head row -->
+        <div class="" style="height: 55px; ">   <!-- head row.row1 -->
+            <div class="" style="width: 27%; height: 55px; float: left;">
+                <img src="img/logo-safe-text.jpg" style="height: 70px; width: auto;"><!-- <h3> LOGO.COM PICS </h3> -->
+            </div>
+            <div class="" style="width: 36%; height: 55px; float: left;">
+                <label color="" style="display:inline-block; margin-right:10px; font-family: verdana; font-size:12px; color: #414141"> Listings in </label> 
+                <select class="" style="height: 18px; display:inline-block; margin-right:10px;" name="region">
+                    <option value="CA">CA</option>
+                </select>
+                <label color="" style="display:inline-block; margin-right:10px; font-family: verdana; font-size:12px; color: #414141"> have a number of 225 </label>
+            </div>
+            <div class="" style="width: 37%; height: 55px; float: left;  display: flex; justify-content: center; align-items: bottom; ">
+                <label color="" style="display:inline-block; margin-right:11px; font-family: arial; font-size:12px; color: #414141"> Search Home </label>
+                <label color="" style="display:inline-block; margin-right:11px; font-family: arial; font-size:12px; color: #414141"> Customer Care   </label> 
+                <label color="" style="display:inline-block; font-family: verdana; font-size:11px; color: #414141; margin-right: 10px;"> Call or Text 800.800.1234</label>
+                 
+            </div>
+        </div>   
+        <div class="" style="height: 50px;">   <!-- head row.row2 -->
+            <div class="" style="position: relative; width: 27%; height: 50px; float: left;">
+                <a href="/" color="" style="display:inline-block; position: absolute; bottom: 0; left: 0px; font-family: verdana; font-size:20px; color: #414141"><strong>HOME</strong></a>
+                <div style="height:20px;  position: absolute; bottom: 3px; left: 70px; border-left: grey solid; border-width: 1px; display:inline-block;"> </div> 
+                <a href="#" color="" style="display:inline-block; position: absolute; bottom: 0; left: 75px; font-family: verdana; font-size:20px; color: #414141"><strong>SEARCH</strong></a>    
+                <div style="height:20px; position: absolute; bottom: 3px; left: 169px; border-left: grey solid; border-width: 1px; display:inline-block;"> </div>
+                <a href="#" color="" style="display:inline-block; position: absolute; bottom: 0; left: 175px; font-family: verdana; font-size:20px; color: #414141"><strong>FRAUD</strong></a>   
+            </div>
+            <div class="" style="position: relative; width: 36%; height: 50px; float: left;">
+                <div class="" align="right" style="position: absolute; bottom: 0px; left: 5px; width: 70%; ">
+                    <label color="" style="text-align: right; font-family: arial; font-size:9px; "> Advanced Listing Search</label>
+                    <form action="/listings/gsearch" method="post">
+                    <div class="input-group input-group-md" style="width: 100%;"">
+                      <input type="text" class="form-control input-md" name="generalsearch" placeholder="Address, City, Zip, Title, ...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-md btn-warning" type="submit"> <span class="glyphicon glyphicon-search"></span> </button>
+                      </span>
+                    </div><!-- /input-group -->
+                    </form>
+                </div>
+            </div>
+            <div class="" style="position: relative; width: 36%; height: 50px; float: left;">
+            <a href="/users/mylistings" color="" style="display:inline-block; position: absolute; bottom: 0; right: 290px; font-family: arial; font-size:16px; color: #414141"><strong>Account</strong></a>
+                <div style="height:18px;  position: absolute; bottom: 3px; right: 278px; border-left: grey solid; border-width: 1px; display:inline-block;"> </div> 
+                 <a href="/users/mylistings" color="" style="display:inline-block; position: absolute; bottom: 0; right: 180px; font-family: arial; font-size:16px; color: #414141"><strong>My Listings</strong></a>
+                <div style="height:18px; position: absolute; bottom: 3px; right: 175px; border-left: grey solid; border-width: 1px; display:inline-block;"> </div>
+                <a href="/users/register" color="" style="display:inline-block; position: absolute; bottom: 0; right: 100px; font-family: arial; font-size:16px; color: #009933"><strong>New User</strong></a>    
+                <div style="height:18px; position: absolute; bottom: 3px; right: 95px; border-left: grey solid; border-width: 1px; display:inline-block;"> </div>
+                <a href="/post" color="" style="display:inline-block; position: absolute; bottom: 0; right: 0px; font-family: arial; font-size:16px; color: #414141"><strong>Post Listing</strong></a>
+            </div>
+        </div><!-- head row.row2 end -->
+    </div>
+
+    <div class="" style="height: 35px; margin-top:15px; display: flex; justify-content: center; align-items: center; background-color: #e8e8e8">
+        <label href="#" color="" style="display:inline-block; font-family: verdana; font-size:16px; color: #414141"><strong style="color: #b71f38">Welcome</strong> to <strong style="color: #b71f38"> Safe Housing</strong> Search Website </label>
+    </div> 
+
+    <div class=""><!-- main body -->
+        <div style="width: 22%; float: left;">
+            <div style="position: relative; height:25px; margin-top: 10px">
+            <label color="" style="position: absolute; left:10px; font-family: verdana; font-size:14px; color: #414141"><strong>Narrow Search By</strong></label>
+            </div>
+            <div style="width: 100%; border-top: black solid; border-width: 2px;"> </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                <label color="" style="font-family: arial; font-size:18px; color: #414141"><strong>TYPE</strong></label>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="typeHouse" ng-change="checkAll(typeHouse)" ng-true-value="'typeHouseTrue'" ng-false-value="'typeHouseFalse'">House</label></div> 
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="typeApt" ng-change="checkAll(typeApt)" ng-true-value="'typeAptTrue'" ng-false-value="'typeAptFalse'">Apartment</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="typeGarage" ng-change="checkAll(typeGarage)" ng-true-value="'typeGarageTrue'" ng-false-value="'typeGarageFalse'">Garage</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="typeSharedroom" ng-change="checkAll(typeSharedroom)" ng-true-value="'typeSharedroomTrue'" ng-false-value="'typeSharedroomFalse'">Shared Room</label></div>                
+            </div>
+            <div style="border-top: grey solid; border-width: 1px; margin-top: 20px;"> </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                <label color="" style="font-family: arial; font-size:18px; color: #414141"><strong>BEDROOM</strong></label>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="bedroomOne" ng-change="checkAll(bedroomOne)" ng-true-value="'bedroomOneTrue'" ng-false-value="'bedroomOneFalse'">1</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="bedroomTwo" ng-change="checkAll(bedroomTwo)" ng-true-value="'bedroomTwoTrue'" ng-false-value="'bedroomTwoFalse'">2</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="bedroomThree" ng-change="checkAll(bedroomThree)" ng-true-value="'bedroomThreeTrue'" ng-false-value="'bedroomThreeFalse'">3</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="bedroomFour" ng-change="checkAll(bedroomFour)" ng-true-value="'bedroomFourTrue'" ng-false-value="'bedroomFourFalse'">4</label></div>                
+            </div>
+            <div style="border-top: grey solid; border-width: 1px; margin-top: 20px;"> </div>
+            <div style="margin-top: 5px; margin-left: 10px;">
+                <label color="" style="font-family: arial; font-size:18px; color: #414141"><strong>CITY</strong></label>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="citySJ" ng-change="checkAll(citySJ)" ng-true-value="'citySJTrue'" ng-false-value="'citySJFalse'">SAN JOSE</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="cityMV" ng-change="checkAll(cityMV)" ng-true-value="'cityMVTrue'" ng-false-value="'cityMVFalse'">MOUNTAIN VIEW</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="citySC" ng-change="checkAll(citySC)" ng-true-value="'citySCTrue'" ng-false-value="'citySCFalse'">SANTA CLARA</label></div>
+                <div class="checkbox" style=""><label><input type="checkbox" value="" ng-model="cityFR" ng-change="checkAll(cityFR)" ng-true-value="'cityFRTrue'" ng-false-value="'cityFRFalse'">FREMONT</label></div>                
+            </div>
+            <div style="border-top: grey solid; border-width: 1px;"> </div>
+        </div>
+        <div style="width: 78%; float: left;"> <!-- body: search result -->
+            <div class="container" style="position:relative; width: 100%; margin-bottom:15px; margin-top: 15px;">
+                <div><label color="" style="font-family: Arial Narrow; font-size:28px; color: green">Advanced Listing Search</label></div>
+                <!-- Gill Sans -->
+                <div><label color="" style="font-family: arial; font-size:11px;">Reset Search</label></div>
+                <div>
+                    <label color="" style="display:inline-block; font-family: arial; font-size:12px;"> {{doc.length}} Results</label>
+                    <div style="position: absolute; bottom:0px; right:0px; display:inline-block; ">
+                    <label color="" style="display:inline-block; font-family: arial; font-size:12px; ">Sorted By: </label> 
+                    <select class="" style="height: 18px; display:inline-block; margin-right:10px;" ng-click"sortChange(selectVal)" ng-model="selectVal" ng-change="sortChange(selectVal)" id="sortby" name="sortby">
+                        <option value="default">default</option>
+                        <option value="pricesort">Price: Low to High</option>
+                        <option value="bedroomsort">Bedroom: Low to High</option>
+                    </select>
+
+                    </div>
+                </div>
+            </div>
+     
+
+
+            <!-- body: search result: items -->
+            <div style="border-top: grey solid; border-width: 1px;"> </div>
+            
+
+
+           <!--  <tr ng-repeat='student in students'>  
+            <td>{{$index + 1}}</td>  
+            <td>{{student.name}}</td>  
+            <td>{{student.score}}</td>  
+        </tr>  -->
+                  
+        <div ng-repeat='d in doc'>  
+            <div class="" style="margin-top: 10px; height: 175px"><!-- body: search result: items -->
+                <div class="" style="width: 17%; height: 175px; float: left;  display: flex; justify-content: center; align-items: center;"> 
+                    <div><img src={{d.image[0]}} style="height: 133px; width: 133px; border:2px solid green"></div>
+                </div>
+                <div class="" style="width: 58%; height: 175px; float: left;"> 
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 20px; color: #595959">{{d.type | capitalize}} - {{d.title}}</label></div>
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 15px; color: #595959">{{d.address.street}}, {{d.address.city}}, {{d.address.state}}</div>
+                    <div style="margin-left: 15px;"><img src="img/{{statusImg[$index]}}" title={{titleStatus[$index]}} style="height: 50px; width: auto;"></div>
+                    <div style="margin-left: 15px; margin-top: 5px"><img src="img/{{ratingImg[$index]}}" title="fraud rating: green is safe" style="height: 36px; width: auto;"></div>
+                </div>
+                <div align="right" class="" style="width: 25%; height: 175px; float: left; ">                    
+                    <div><label color="" style="font-family: verdana; font-size:18px; margin-top: 7px;">${{d.price}}</div>
+                    <form action={{detailUrl[$index]}} method="get"><div style="margin-top: 7px;"><button type="submit" class="btn btn-success" style="font-family: arial Narrow; font-size: 20px; width: 200px; height: 40px"><strong>Details</strong></button></div></form>
+                    <div><label color="" style="font-family: arial; font-size:13px; margin-top: 4px;">{{d.bedroom}} bedrooms {{d.bathroom}} bathrooms</label></div>
+                    <div><label color="" style="font-family: arial; font-size:12px; margin-top: 4px;">Available on <strong>{{date[$index] | convertDate}}</strong></label></div>
+                </div>
+            </div>
+            <div style="border-top: #e6e6e6 solid; border-width: 1px; margin-top: 12px"> </div><!-- body: search result: items end-->
+        </div>
+            
+
+        </div><!-- body: search result end -->
+    </div> <!-- main body end -->
+
+    
+    <% if(locals.error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if(locals.success) { %>
+        <div class="alert alert-success"><%= success %></div>
+    <% } %>
+    
+
+</div> <!--container end -->
+
+
+
+</html>
+
+<%- include('partials/footer') %>
