@@ -1,4 +1,4 @@
-JS数据类型
+﻿JS数据类型
 字符串、数字、布尔、数组、对象、Null、Undefined
 
 js-array: add method
@@ -85,7 +85,8 @@ js type: mongoose type defined, must parseFloat()/parseInt(), Date.parse() or NO
 js datatypes: typeof(null)=object; typeof(undefined)=undefined; null==undefine(yes); null===undefined(no) ; Undefined, In JavaScript, a variable without a value, has the value undefined. The typeof is also undefined. variable can be emptied, by setting the value to undefined. The type will also be undefined.
 
 [some-tricks]
-js date
+js fetch date field in mongo
+mongo date fetch use substring(0,10) not getdate()[notTested]+1, line 207:date[i] = new Date($scope.doc[i].availableOn);
 https://stackoverflow.com/questions/3075577/convert-mysql-datetime-stamp-into-javascripts-date-format
 https://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript
 js assign datetime in mysql

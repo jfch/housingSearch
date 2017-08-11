@@ -10,6 +10,7 @@ Architecture diagram
 
 
 [future] something to improve
+Frontend- listing.ejs; mongo date fetch use substring(0,10) not getdate()[notTested]+1, line 207:date[i] = new Date($scope.doc[i].availableOn);
 Frontend- search page API with backend API **
 => https://www.trulia.com/for_sale/95133_zip/0-650000_price/
 => frontend js sort reuslts(backend db or frontedn) ; http://www.imooc.com/article/13958
