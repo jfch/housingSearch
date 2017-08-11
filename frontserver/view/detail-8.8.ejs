@@ -93,29 +93,8 @@
 
                 <% 
                 var cre = JSON.parse(created); 
-                var isDuplicateImg = false;
-                var isDuplicateAdd = false;
-                var statusImg;
-                if(cre.duplicatedImgExisted != undefined){
-                    isDuplicateImg = cre.duplicatedImgExisted
-                }
-                if(cre.duplicatedAddExisted != undefined){
-                    isDuplicateAdd = cre.duplicatedAddExisted
-                }
-                if(cre.rating == -1){
-
-                        statusImg = 'img/status-ongoing.png';
-                }else{
-                    if(isDuplicateImg || isDuplicateAdd){
-                        statusImg = 'img/status-caution.png'
-                    }else{
-                        statusImg = 'img/status-safe.png'
-                    }
-                }
-                
                 for(var i in cre.image) 
                 {     
-                    
                 %>
                    <!-- <li> -->
                    <div class="container">
@@ -128,7 +107,6 @@
                                 <%= cre.bedroom%>Bedroom <span class="primary" style="color: #3cbe3c"> <%= cre.type.toUpperCase()%><strong> <%= cre.title%></strong></span>
                             </h2>
                             <h4 class="caption subtitle">Rent: $<%= cre.price%></h4>
-                            <img class="caption" src=<%= statusImg%> title="" style="height: 38px; width: auto;"><label style="color: white">--</label>
                             <a class="caption button-radius" href=<%= '/fraudreport/' + cre._id %>><span class="icon"></span>Fraud Report</a>
                         </div>
                         </div>
