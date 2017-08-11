@@ -1,0 +1,7 @@
+nodejs hangup/not execute any code following
+==>finally know where these following 3 will go, in express next will go to error handler. usually just use return();
+*return next(): fina/ return next(error)/res.send; return(); ->check error handling; vs. next();
+==> It is good practice to use return next() instead to prevent Node from throwing errors further on (such as the can't set headers after they are sent - error). This includes the above suggestion of error throwing which is common:
+=> pass control to the next middleware function like app.use('',midfunc1(),midfunc2()) in this stack
+https://stackoverflow.com/questions/14709802/exit-after-res-send-in-express-js
+https://cnodejs.org/topic/52a5dbe2a6957a08096f87a7

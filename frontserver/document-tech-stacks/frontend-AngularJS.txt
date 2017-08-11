@@ -1,0 +1,71 @@
+AngularJS basic
+ng-model: TWO way binding, https://www.w3schools.com/angular/angular_model.asp
+ng-file-modle: ng-file-model example
+
+
+Angularjs字符串拼接
+<a ng-href="http://each.sinaapp.com/angular + {{variable}}">  
+  or  .  
+<a ng-href="{{'http://each.sinaapp.com/angular'+variable}}">  
+http://qiaolevip.iteye.com/blog/2255757
+
+
+Angular ng-repeat, $index
+http://bijian1013.iteye.com/blog/2108092
+
+
+
+
+[basics]
+
+AngularJS code 写在页面还是单独文件js 
+-单独文件, -如何引用: 页面中使用<script>引用, -代码: js: ng.module
+-AngularJS HelloWorld Project/AngularJS example例子代码(see Project281-HappyRestaurant)
+-代码文件
+https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md
+
+AngularJS $http: 前端angularJS script发出http请求
+https://checkcheckzz.gitbooks.io/angularjs-learning-notes/content/chapter11/11-1.html
+
+AngularJS 表单提交代码[不推荐] http://www.111cn.net/wy/jquery/75590.htm
+http://html5beta.com/page/angular-form-submit-best-practice.html
+
+Angularjs项目需要从一个页面跳转到另一个页面，同时需要传递一个参数。
+如果你的需求是在url上带参数，最快捷的方法是$location.url()。如果用到ui-router,可以用$state.go()
+https://www.zhihu.com/question/33565135
+ui-router学习 
+https://github.com/angular-ui/ui-router/wiki/URL-Routing
+http://bubkoo.com/2014/01/01/angular/ui-router/guide/multiple-named-views/
+
+Jquery加载
+<!-- index.html -->
+<head><!-- LOAD JQUERY -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+
+AnglarJS加载
+<!-- LOAD ANGULAR -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+AngularJS代码
+<!-- PROCESS FORM WITH AJAX (NEW) -->
+<script>
+        // define angular module/app
+        var formApp = angular.module('formApp', []);
+        // create angular controller and pass in $scope and $http
+        function formController($scope, $http) {}
+</script>
+
+<!-- apply the module and controller to our body so angular is applied to that -->
+<body ng-app="formApp" ng-controller="formController">
+https://www.oschina.net/translate/submitting-ajax-forms-the-angularjs-way
+
+
+
+前端-如何发送数据请求给服务器
+<form method=post><button type=submit>
+浏览器生成http请求数据, URL "/", 包含form(req.body)数据;后端node server根据http路由,决定处理
+
+Angular源代码研究
+主动滴在我使用 Angular 的过程中，不断地使用 $http, ng-repeat, $sce, filter，我打算去看看他们是怎么实现的。比如 $q，angular.js/q.js at master · angular/angular.js · GitHub 一共只有三百行代码，实现了 Promise，半天就看完了。所以你可以把 http://github.com/angular/angular.js/tree/master/src/ng 下面的核心组件先一个个看完，然后挑一些 http://github.com/angular/angular.js/tree/master/src/ng/directive 看看就行，毕竟都是差不多的。零散地把模块们看下去，接下来就是看要如何进行组装了。这里我同样推荐 Build Your Own AngularJS，这本书基本按照 AngularJS 的实现进行了解构，可以参考这本书中的顺序，自上而下地了解 AngularJS 的架构。
+来源：知乎 https://www.zhihu.com/question/30154124/answer/92522444

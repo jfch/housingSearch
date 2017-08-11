@@ -1,0 +1,125 @@
+signin, session,token
+
+question1:
+local.var; res.render('pagename',{var:a}); //compare with res.send; res.write;
+question2:
+how to use session in the backend - frondend 
+question3:
+token: just is a pem key file.
+
+req.session can be visited in every req from certain browser
+XSRF
+XSS 漏洞，由于 cookie 可以被 JavaScript 读取
+
+safety/security requirement:
+1,view sources limitation: if(req.session)
+2,edit database limiatation( limit to certain user's data) :req.session.username
+
+**TEST these two from two concurrent users. to see any differentces;
+
+classic documents:
+http://expressjs-book.com/index.html%3Fp=128.html
+session token design discussion
+https://cnodejs.org/topic/56e9177ca70420bd420cffcf
+session perfect code example
+http://code.runnable.com/U0tEnHwraXYyp-JG/simple-usage-of-express-session-and-cookie-parser-with-express-for-node-js
+http://code.runnable.com/U0tEnHwraXYyp-JG/simple-usage-of-express-session-and-cookie-parser-with-express-for-node-js
+You can find the session options in the express-session documentation.
+https://github.com/expressjs/session
+
+//once assigned, all requests will have req.session; check out the code  (twitter-proto,app.js: express4.0)
+//show hide signin button: use res.local
+//make user visible among pages ejs //default pass data to all pages
+	app.get('*', function(req,res,next){
+		if(req.session.user){		
+			res.locals.user = req.session.user || null;		
+		}
+		next();	
+	});
+
+//session 2types
+session 2 types
+-cookie session: saved in the client side, on browser(cannot store large complicated data, not popular)
+-server session or called "session store-based session": client side save sessionid; saved in backend server side(memory, database)
+
+-type2 usage examples:
+ (http://expressjs-book.com/index.html%3Fp=128.html: express3.0-cookieParser is embeded in Exppress)
+	app.use(express.cookieParser('S3CRE7'));
+	app.use(express.session());
+	or.
+	app.use(express.session({
+	  secret: 'SEKR37',
+	  store: new MongoStore({
+	    db: 'myapp',
+	    host: '127.0.0.1',
+	    port: 3355
+	  })
+	}));
+
+ (twitter-proto,app.js: express4.0)
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+app.use(cookieParser('cookieSecret'));
+app.use(session({ resave: true,
+    saveUninitialized: true,
+    secret: 'sessionSecret' })); //express 4.0
+//app.use(session({ resave: true, saveUninitialized: true, secret: 'uwotm8' })); //express 4.0
+//app.use(express.session({secret:'sessionSecret'})); //express 3.0
+
+ (twitter-proto-mongo,app.js: express4.0)
+var cookieParser = require('cookie-parser');
+app.use(cookieParser('cookieSecret'));
+var expressSession = require('express-session');		//MongoDB session store for Express and Connect
+var mongoStore = require('connect-mongo')(expressSession);	//MongoDB session store for Express and Connect
+var mongoGate = "mongodb://localhost:27017/sessions";
+app.use(expressSession({					//MongoDB session store for Express and Connect
+	secret: 'cmpe273_teststring',
+	resave: false,  					//don't save session if unmodified
+	saveUninitialized: false,				// don't create session until something stored
+	duration: 30 * 60 * 1000,    
+	activeDuration: 5 * 60 * 1000,
+	store: new mongoStore({
+		url: mongoGate
+	})
+}));
+
+
+
+
+var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');			//MongoDB session store for Express and Connect
+var mongoStore = require('connect-mongo')(expressSession);	//MongoDB session store for Express and Connect
+var mongoGate = "mongodb://localhost:27017/sessions";
+app.use(expressSession({									//MongoDB session store for Express and Connect
+	secret: 'cmpe273_teststring',
+	resave: false,  				//don't save session if unmodified
+	saveUninitialized: false,		// don't create session until something stored
+	duration: 30 * 60 * 1000,    
+	activeDuration: 5 * 60 * 1000,
+	store: new mongoStore({
+		url: mongoGate
+	})
+}));
+
+
+
+0. definition first, clear confustion:
+
+res.locals.name <==> res.render(page, {name:name})
+	var app = express();
+	app.locals.name = '这是一个APP'; // 定义可以应用整个生命周期中使用的变量
+	app.use(function(req, res, next) {
+	  app.locals.name = '新名称'; // 修改
+	  res.locals.url = 'http://itbilu.com'
+	  next(err);
+	});
+	Express 模板传值对象app.locals、res.locals 2016年07月21日   https://itbilu.com/nodejs/npm/Ny0k0TKP-.html
+
+
+modules
+npm: express-session
+npm: express-sessions ; becareful , this is not frequeently used
+
+
+
+

@@ -1,0 +1,150 @@
+save image to db(mongo)
+
+
+*How to save image to MongoDB? 
+[important]file can be sent via base64string(json is string) or binary
+[important] multipart/form-data(binary) can not be saved to mongodb directly when using paser module like multiparty/formiable, one way to go around is use js and use some code to read image file on disk
+[design]mongo save meta data, content save to s3
+[design]store the file upload metadata inside mongoose and keep the file itself on the LOCAL filesystem (most flexible and hassle-free approach) 
+https://groups.google.com/forum/#!topic/mongoose-orm/H-8JLNyivcc
+[design]store base64 string in mongo
+[design]directly save to mongo not available now; read file and save using fs; Store Image file in Binary data in mongoose schema and Display image in html form 
+First of all, you have to convert buffer data to base64. You can do it in back-end or front-end it does not matter. Just use yourBufferData.toString('base64'). Then you can use it.
+https://stackoverflow.com/questions/37077712/store-image-file-in-binary-data-in-mongoose-schema-and-display-image-in-html-for
+https://stackoverflow.com/questions/34485420/how-do-you-put-an-image-file-in-a-json-object
+
+How do you put an image file in a json object and save to mongo? 
+https://stackoverflow.com/questions/34485420/how-do-you-put-an-image-file-in-a-json-object
+how to convert binary(image) to BASE64 string
+https://stackoverflow.com/questions/22172604/convert-image-url-to-base64/22172860#22172860
+https://stackoverflow.com/questions/15760764/how-to-get-base64-encoded-data-from-html-image?noredirect=1&lq=1
+
+
+
+What is the Image File Size (chunking)
+
+1.MONGODB-a listing(document) samller than 16M
+
+1)Nodejs Middleware-formidable : processing multiple files/images
+-HOW TO get files one by one --file[0] or keys
+
+https://itbilu.com/nodejs/npm/41vWPhuEb.html
+var keys = Object.keys(files);
+
+2-a) store_display an image in mongodb using mongoose_express
+https://gist.github.com/aheckmann/2408370
+a.img.data = fs.readFileSync(imgPath);
+
+2-b)Get Image from db and display on front end...
+another way
+https://gist.github.com/aheckmann/2408370
+ziaulain commented on May 22, 2015
+
+Server side:
+    app.get('/api/getcake', function(req, res) {
+        console.log("Get cake function");
+        model.find(function (err, doc) {
+            if (err) return next(err);
+        var base64 = (doc[0].img.data.toString('base64'));
+        res.send(base64);        
+        });
+    });
+Client Side:
+	$scope.GetCake = function() {
+	$http.get('/api/getcake')
+	.success(function(doc) {
+	console.log(doc);
+	$scope.imgsource=doc;
+	})
+	.error(function(data) {
+	console.log('Error: ' + data);
+	});
+	};
+
+
+BinData 
+Furthermore, if your files are all smaller the 16 MB BSON Document Size limit, consider storing the file manually within a single document instead of using GridFS. You may use the BinData data type to store the binary data. See your drivers documentation for details on using BinData
+
+Http-string
+you can convert images, such as .jpg, .bmp, .png, or .gif into a base64 string that you can quite easily store into a .json document. 
+There are multiple of free services out there that will convert the images into a data URI format, or you can do it through code.https://teamtreehouse.com/community/somebody-please-help-me-put-images-in-json
+
+
+(OPTIONAL)multiparty to S3
+https://github.com/pillarjs/multiparty/blob/master/examples/s3.js
+(OPTIONAL) Data URI scheme, This technique allows normally separate elements such as images and style sheets to be fetched in a single Hypertext Transfer Protocol (HTTP) request
+data:[<media type>][;base64],<data>
+(OPTIONAL)How do I auto-submit an upload form when a file is selected?	
+-What if the user selects the wrong file? IMO, you should leave it to the user to choose when to submit.
+-You can simply call your form's submit method in the onchange event of your file input.
+document.getElementById("file").onchange = function() {
+    document.getElementById("form").submit();
+};
+https://stackoverflow.com/questions/7321855/how-do-i-auto-submit-an-upload-form-when-a-file-is-selected
+
+
+
+
+
+2.a listing(document) larger than 16M(use gridfs)
+Save a large file to mongodb, get return field; https://stackoverflow.com/questions/6936396/problem-with-mongodb-gridfs-saving-files-with-node-js MongoDB GridFS Saving Files with Node.JS
+gridfs: 
+-format/storing method : https://docs.mongodb.com/manual/core/gridfs/
+	--GridFS is a specification for storing and retrieving files that exceed the BSON-document size limit of 16 MB.
+	--Instead of storing a file in a single document, GridFS divides the file into parts, or chunks, and stores each chunk as a separate document. By default, GridFS uses a chunk size of 255 kB; that is, GridFS divides a file into chunks of 255 kB with the exception of the last chunk. The last chunk is only as large as necessary. Similarly, files that are no larger than the chunk size only have a final chunk, using only as much space as needed plus some additional metadata.
+	--Do not use GridFS if you need to update the content of the entire file atomically. As an alternative you can store multiple versions of each file and specify the current version of the file in the metadata. You can update the metadata field that indicates ¡°latest¡± status in an atomic update after uploading the new version of the file, and later remove previous versions if needed.
+	--Furthermore, if your files are all smaller the 16 MB BSON Document Size limit, consider storing the file manually within a single document instead of using GridFS. You may use the BinData data type to store the binary data. See your drivers documentation for details on using BinData.
+-gridstore(): constructor, class representation of a file stored in GridFS.http://mongodb.github.io/node-mongodb-native/api-generated/gridstore.html
+-Use GridFS: To store and retrieve files using GridFS, use either of the following: A MongoDB driver. See the drivers documentation for information on using GridFS with your driver.
+
+gridfs-streaming(npm module): 
+-easily stream files to and from MongoDB GridFS. https://www.npmjs.com/package/gridfs-stream
+
+(OPTIONAL) Store an image to Mongo using mongoose
+https://stackoverflow.com/questions/8135718/how-to-use-gridfs-to-store-images-using-node-js-and-mongoose
+(OPTIONAL) GRID with moongoose
+http://excellencenodejsblog.com/gridfs-using-mongoose-nodejs/
+
+How to asscociate gridfs with document in mongoose???
+-be familiar with gridfs usage, and gridfs-stream	
+-use file name to assciate(save image then callback(get saved imageid/filename, save fields, then callback))
+-https://stackoverflow.com/questions/35873123/associating-a-gridfs-stream-file-to-a-schema-with-mongoose
+
+
+*Example: GRIDFS storing-a-file(req.files)-into-mongodb 
+
+https://stackoverflow.com/questions/34576507/storing-a-file-into-mongodb-using-multer-in-mongoose
+var mongoose = require("mongoose");
+var express = require("express");
+var formidable = require("formidable");
+var fs = require("fs");
+var grid = require("gridfs-stream");
+var bodyparser = require("body-parser");
+var app = express();
+
+mongoose.connect("**fill in your connection-url here**");
+var conn = mongoose.connection;
+app.use(bodyparser.json());
+app.post('/Upload', function (req, res) {
+    var form = new formidable.IncomingForm();
+    form.uploadDir = __dirname+"/Uploads";
+    form.keepExtensions = true;
+    form.parse(req, function (err, fields, files) {
+        if (!err) {
+            console.log('Files Uploaded: ' + files.file)
+            grid.mongo = mongoose.mongo;
+            var gfs = grid(conn.db);
+            var writestream = gfs.createWriteStream({
+                filename: files.file.name
+            });
+            fs.createReadStream(files.file.path).pipe(writestream);
+        }
+    });
+    form.on('end', function () {
+        res.send('Completed ... go check fs.files & fs.chunks in mongodb');
+    });
+});
+
+
+
+

@@ -1,0 +1,31 @@
+zip file
+zip -r myfile.zip ./*			//将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.
+zip -r myfile.zip foldername (./*)
+
+
+unzip
+unzip filename.zip
+unzip -d path filename //unzip to different folder
+unzip -o //overwrite
+unzip -d /home/sunny myfile.zip //把myfile.zip文件解压到/home/sunny/
+https://www.lifewire.com/examples-linux-unzip-command-2201157
+
+
+
+---(deployment)forever---
+
+(deployment)forever auto restart
+https://stackoverflow.com/questions/12701259/how-to-make-a-node-js-application-run-permanently
+https://github.com/foreverjs/forever
+==>npm install forever -g
+==>forever start -a server.js //server.js: the web app, -a: append
+	run as a service:
+	forever start server.js
+	Forever restarts your app when it crashes or stops for some reason. To restrict restarts to 5 you could use:
+	forever -m5 server.js
+	To list all running processes:
+	forever list
+	Note the integer in the brackets and use it as following to stop a process:
+	forever stop 0
+	Restarting a running process goes:
+	forever restart 0

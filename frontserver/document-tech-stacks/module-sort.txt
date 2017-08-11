@@ -1,0 +1,20 @@
+sort 
+
+SOLUTION: select event - sort - (opt)reload page;
+
+-select event(ng-change)
+http://quanwsx.iteye.com/blog/1500287
+http://angularjs.cn/A0ec; http://www.runoob.com/angularjs/ng-ng-change.html
+
+-sort
+https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
+
+
+-reload page(js): window.location.reload();
+http://www.5idev.com/p-javascript_location_reload.shtml; http://www.cnblogs.com/flaaash/archive/2008/04/25/1170771.html
+
+
+-selected value saved to local
+https://segmentfault.com/q/1010000006245242
+
+

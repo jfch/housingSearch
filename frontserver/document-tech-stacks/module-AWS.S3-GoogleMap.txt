@@ -1,0 +1,22 @@
+Google Map APIs
+How to convert address to geo lat and lon, restful API
+
+KEY-JS api:AIzaSyDE3Kp25MA7U-qEc7qwwt7RU4D2PYMHMfM
+pageposting-API: address->lat;
+==>https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCzEyDueuvT5dF-F6JZu30Y8MAmjw4JPOY
+https://maps.googleapis.com/maps/api/geocode/json?address=1886+Pine+Hollow+Circle,+San+Jose,+CA&key=AIzaSyCzEyDueuvT5dF-F6JZu30Y8MAmjw4JPOY
+==>(google key:AIzaSyCzEyDueuvT5dF-F6JZu30Y8MAmjw4JPOY),To improve your app's security, restrict this key's usage in the API Console(https://console.developers.google.com/apis/credentials/key/59?authuser=0&project=my-project-1500453856059).
+
+☆引入地图插件
+https://www.trulia.com/CA/San_Jose/
+
+---
+AWS S3
+How to upload image to AWS S3 and get the image file's URL
+https://github.com/pillarjs/multiparty/issues/141 (sample code+this)
+https://stackoverflow.com/questions/13979558/saving-an-image-stored-on-s3-using-node-js
+https://stackoverflow.com/questions/35400945/how-to-upload-image-to-aws-s3-and-get-the-image-files-s3-bucket-url-and-save-to
+
+AWS S3 link-How do I get an access key for Amazon S3? 
+https://console.aws.amazon.com/s3/buckets/cmpe295housing/?region=us-west-2&tab=overview

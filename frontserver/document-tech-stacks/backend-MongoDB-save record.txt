@@ -1,0 +1,143 @@
+mongo-id: _id->string check this out, https://docs.mongodb.com/v3.0/reference/method/ObjectId.valueOf/ (MongoDB is intended to be scaled horizantally. In this case, an auto increment would lead to id collisions. That is why the id looks much more like a guid/uuid.)
+
+
+mongoose save array to database
+https://stackoverflow.com/questions/35024285/how-to-save-array-of-objects-in-mongoose
+	var ProductSchema = new Schema({
+	name: String,
+	conditions:  [{}],
+	colors: [{}]
+		  });
+
+
+mongo find result and json(important)
+return res.json(data); OR. console.log(JSON.stringify(subjects, null, 4))
+https://stackoverflow.com/questions/36999478/how-to-print-mongoose-find-array-docs-in-console
+https://stackoverflow.com/questions/23642510/send-mongodb-query-result-as-json-using-express
+
+
+mongo-date: html5 date saved to mongodb-mongoose
+==>momentjs http://momentjs.com/ https://stackoverflow.com/questions/13513548/how-to-display-mongoose-date-in-html5-input-type-date-format-dd-mm-yyyy
+==>https://stackoverflow.com/questions/27350644/storing-a-user-provided-date-in-mongoose
+
+mongo-null, user did not input anything to this field
+==>image array null: 
+==>input checkbox: petOK: fields.petOK==undefined? false : true
+==>input string: str(str=='') fields.contact==undefined? '' : fields.phone
+==>input number: (only input of phone number and contact name is not required) fields.phone==undefined? '' : fields.phone
+==>upload image files, 
+
+
+mongo
+如果数据库表中有buzzName字段就查询该字段，如果表中没有buzzName字段就忽略buzzName字段的查询条件…该如何写find方法
+$exists:true
+https://cnodejs.org/topic/53bb8fc2a3ccaece733b338f
+
+
+[[install mongo]]
+mongo
+==>install mongo : create repo file; then sudo yum install -y mongodb-org
+sudo service mongod start; sudo service mongod restart; sudo chkconfig mongod on // optionally ensure that MongoDB will start following a system reboot by issuing the following command
+https://docs.mongodb.com/v3.0/tutorial/install-mongodb-on-amazon/
+==>create db "globallisting"
+$ mongo
+MongoDB shell version: 2.6.7
+connecting to: test
+> use nodewebappdb
+switched to db nodewebappdb
+> db
+nodewebappdb
+> show dbs
+admin               (empty)
+local               0.078GB
+nodews4             0.078GB
+nodewebappdb        0.078GB
+> show collections
+
+==>MongoDB CRUD Operations/Tutorials
+collection-codument
+[Create]
+db.inventory.insert(
+   {
+     item: "ABC1",
+     details: {
+        model: "14Q3",
+        manufacturer: "XYZ Company"
+     },
+     stock: [ { size: "S", qty: 25 }, { size: "M", qty: 50 } ],
+     category: "clothing"
+   }
+)
+[Delete]
+db.inventory.remove({});
+db.inventory.remove( { type : "food" }, 1 )
+[query]
+db.inventory.find().limit(20);
+db.inventory.find(
+   {
+     type: 'food',
+     $or: [ { qty: { $gt: 100 } }, { price: { $lt: 9.95 } } ]
+   }
+)
+[update]
+db.inventory.update(
+   { category: "clothing" },
+   {
+     $set: { category: "apparel" },
+     $currentDate: { lastModified: true }
+   },
+   { multi: true }
+)
+https://docs.mongodb.com/v3.0/tutorial/insert-documents/
+
+
+
+[app.js + mongo]
+
+seach key-value, query mongo, return array of records(JSON)
+--form 用户optional 未填的字段 是 undefined 而不是根本没有这个字段; + mongoose如何 query: 
+
+post key-vale, save to mongo(connect to mongo, save to mongo using mongoose), return this record.
+--form 用户optional 未填的字段 是 undefined 而不是根本没有这个字段; + mongoose使用undefined来存入: https://stackoverflow.com/questions/12636938/set-field-as-empty-for-mongo-object-using-mongoose?noredirect=1&lq=1
+https://stackoverflow.com/questions/29188131/mongoose-set-default-as-empty-object
+--mongoose.Schema datatype: 'string' 'number': http://mongoosejs.com/docs/guide.html http://mongoosejs.com/docs/populate.html
+--post listing address --> lat,lon
+--mongo password: mongoose.connect('mongodb://username:password@host:port/database?options...');
+--how to put mongoose connection db to indepeent js file
+
+
+==>nodejs connect mongodbdb
+mgoose=require("mongoose"); //go to app directiory; npm install mongoose;  
+mgoose.connect('mongodb://localhost/dbname');
+
+Mongoose CRUD
+http://mongoosejs.com/docs/models.html
+
+==>CRUD-C: create record 
+==>>create request.body: listing data
+==>>create production listing schema
+http://mongoosejs.com/docs/models.html http://mongoosejs.com/docs/populate.html
+http://mongoosejs.com/docs/guide.html
+https://www.mongodb.com/blog/post/the-mean-stack-mistakes-youre-probably-making
+==>>create record --> collectionname.create({key:value},function());
+var Collname = mgoose.model('Collname',schema);
+var schema= new mongoose.Schema({name:'string', age:'', gender:''});	//model will not always create collections 
+//db.col.insert
+var sample= new coll({key:'v'});
+sample.save(funvtion(error){
+});
+// or
+Collname.create({ name: 'newsmall',age: req.body.age }, function (err, small) { //sucessfully will return record
+    if (err) return handleError(err);
+    // saved!
+    console.log(small);
+    res.json(small);
+})
+
+
+==>CRUD-R: query record
+==>collectionname.find({ size: 'small' }).where('createdDate').gt(oneYearAgo).exec(callback);
+
+==>nodejs find()/ mongo find
+==>return JSON result
+

@@ -1,0 +1,165 @@
+☆AJAX - asynchronized
+Another Example
+https://codeforgeek.com/2014/09/handle-get-post-request-express-4/
+nodejs 接受异步请求, 如何把JSON返回给客户端 
+2013,32968 次浏览,一次编辑是2017.01. https://cnodejs.org/topic/515502ea5dff253b373de23d
+客户端发起异步请求，如何在服务端处理返回给它JSON呢，
+	//客户端示例代码：
+	$.ajax({
+		url: ‘/ajaxTest’,
+		type: ‘GET’,
+		success: function(data){
+		console.log(‘success!’)
+		console.log(data.toString());
+	}
+
+★Search表单提交(前端如何取元素值-服务器如何解释req.body)
+-前端get element values: i.e. get checkbox value;
+-<form method="post"> <button type="submit"> <name="">
+ <form> control: Bootstrap supports the following 5 form controls: input,textarea,checkbox,radio,select; Bootstrap Input supports all the HTML5 input types: text, password, datetime, datetime-local, date, month, time, week, number, email, url, search, tel, and color.
+-req.body one field: 
+-req.body multi field(JSON): 
+-res JSON数据解析 并跳转页面render
+
+★Node 后端服务器搭建(保存干净代码)
+-node.js receiving:接收req.body(JSON数据)并打印
+-解析JSON对数据库进行查询
+-返回查询的结果(JSON格式)
+
+Node express怎么获取表单传递过来的数据？
+-req.body 表单提交到的数据，在后端可以通过body-parser的模块进行解析，使用者只需要调用req.body，就可以访问你写的ejs中表单元素的name字段，如果你的name字段设为password,直接使用req.body.password就可以了！https://segmentfault.com/q/1010000004818031
+-取checkbox(undefined,or value), select值 https://stackoverflow.com/questions/32203418/node-express-jade-checkbox-boolean-value
+
+
+
+
+0) Node后端 app.js/server.js
+app.use():
+app.get(): 根据url+post/get不同路由运行不同的服务器上的服务函数
+app.use(express.static('public')); //访问静态资源 http://www.tangshuang.net/3107.html
+==>上面的代码并不能让你的服务器提供静态文件服务，也就是说你的图片和脚本都没有办法通过浏览器访问。通过express的中间件可以轻松实现静态文件服务。把上面这段代码加到app.listen之前。在项目目录下创建public目录，并且把静态文件都放进去，重新运行node index.js这个命令。于是，html、图片也可以访问了。
+
+
+a) nodejs get req send res + send request, get response
+==>
+nodejs接受JSON数据 (HTTP) (user+token) :How do I consume the JSON POST data in an Express application
+https://stackoverflow.com/questions/10005939/how-do-i-consume-the-json-post-data-in-an-express-application
+https://stackoverflow.com/questions/9577611/http-get-request-in-node-js-express
+nodejs发送JSON数据 (HTTP)
+http://yijiebuyi.com/blog/8221eb14c8482e7efd1868946e99ea7c.html
+simple request:https://stackoverflow.com/questions/24186630/nodejs-express-make-get-request
+==>
+.CHROME-PLUGIN: postman
+==>
+.LINUX: Test along the lines of:(or use POSTMAN)
+$ curl -d '{"MyKey":"My Value"}' -H "Content-Type: application/json" http://127.0.0.1:3000/ {"MyKey":"My Value"}
+
+
+
+
+[PROCEDURE] a.1)-a.3):
+
+a.1) EC2 instance,(jiongfchen, different OS has diff user name: ubuntu,root-SUSE, Security UPDATE:sudo yum update) 
+==>Launch(public IP, security-MYSQL,SSH,HTTP, keypair.pem(新锁的新钥匙/旧锁同样的锁)): ec2-52-25-0-66.us-west-2.compute.amazonaws.com;52.25.0.66
+==>HOW TO CONNECT using WINDOWS(putty, winscp)[OK]
+==>>PuTTYgen(pem->ppk, "ssh2 RSA2"-save private key-yes-generate)
+==>>putty(select private key, ec2-user)
+==>>WINSCP(advanced-ssh-ppk, editorSublime =>C:\Program Files\Sublime Text 3\sublime_text.exe); 
+==>HOW TO CONNECT using LINUX [OK]
+==>>挂载共享文件夹sudo /sbin/mount.vboxsf files_virtualbox /mnt/;(mypc/files_virtual...);
+==>>ssh -i /path/my-key-pair.pem ec2-user@ec2-198-51-100-1.compute-1.amazonaws.com; google "connect to ec2"
+    ssh -i /mnt/cmpe_295_project/proj-dbserver.pem ec2-user@ec2-52-25-0-66.us-west-2.compute.amazonaws.com
+
+a.2) install node, express, express generator, express hello world
+==>install node
+==>>(install Node Version Manager)curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
+==>>. ~/.nvm/nvm.sh
+==>>nvm install 4.4.5 //install version number
+==>>node -v; node -e "console.log('Running Node.js ' + process.version)"
+http://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
+
+==>install Express Module: (express-app.js hello world, package.json) 
+==>>*mkdir myworkspace/project-295, npm init //create package.json
+==>>*npm install express --save
+==>>app.js(express-app.js hello world):
+const express = require('express')
+const app = express()
+app.get('/', function (req, res) {
+  res.send('Hello World!')
+})
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+==>>node app.js ==>>nohup node app.js & (more: http://fengliner.github.io/2014/11/20/node.js%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C/)
+
+==>install Express generator(Convenient*! express is subset of it, just update package.json with VERSION,AUTHOR information):  mkdir myworkspace/project-295-gener, 
+==>>npm install express-generator -g; //global install 全局安装就不用配置path, to directory"express-generator@4.15.0 /home/ec2-user/.nvm/versions/node/v4.4.5/lib/node_modules/express-generator"
+==>>*express --view=ejs myapp; //*the following creates an Express app named myapp. The app will be created in a folder named myapp in the current working directory and the view engine will be set to Ejs:
+==>>*npm install; //install dependencies
+==>>DEBUG=myapp:* npm start; or. npm start or. node bin/www	//On MacOS or Linux, run the app with this command; 
+set DEBUG=myapp:* & npm start;	//On Windows, use this command:
+https://expressjs.com/en/starter/installing.html
+==>>app.js(express-app.js hello world):
+[app.js]
+app.use('/', index);
+app.use('/users', users);
+[index.js] router.get
+router.get('/test', function(req, res, next) {
+  res.send("hello testing sucessfully");
+});
+[bin/www] port
+nohup node bin/www &
+npm start
+[security group]
+
+
+
+
+a.3) app.js consuming JSON/respond JSON(express hello world)
+[SUMMARY] 
+*node.js-Express 接受处理 post 4种方式提交参数(json,form-url,form-mulpart,xml): http://yijiebuyi.com/blog/90c1381bfe0efb94cf9df932147552be.html
+*node.js-Express 接受处理 post请求,默认未使用app.use只识别字符串(str): https://segmentfault.com/q/1010000004710251
+*req.params.,req.query.,req.body.,req.param.; 1、对于path中的变量，均可以使用req.params.xxxxx方法 2、对于get请求的?xxxx=,使用req.query.xxxxx方法 3、对于post请求中的变量，使用req.body.xxxxx方法 4、以上三种情形，均可以使用req.param()方法，所以说req.param()是req.query、req.body、以及req.params获取参数的三种方式的封装。http://xuyuan923.github.io/2014/10/10/node-tutorial-req/
+*res.send(""); *res.json(array); res.sendfile("*.html");* res.end()
+//res.sendfile() Example: 
+app.get('/',function(req,res){
+  res.sendfile("index.html");
+}); https://codeforgeek.com/2014/09/handle-get-post-request-express-4/
+//res.json() Example:  JSON array //res.json(data) will just flush the buffer and end the response in one go.
+data=[
+	{"uuid": "ac475cf4-ef10-4be2-8a65-665178f9682c", "status": "whatever"},
+	{"uuid": "bc321fc3-fe70-5eb4-f968-9682c75cf455", "status": "great"},
+        {"name":"chen","age":"11","sex":"male"}
+   ]
+response.json(data);//https://stackoverflow.com/questions/31238404/node-express-node-request-streaming-json-objects
+
+
+[CODE EXAMPLE]
+nodejs-Express接受JSON数据 (HTTP)(user+token)  -request.body.fieldname -How do I consume the JSON POST data in an Express application https://stackoverflow.com/questions/10005939/how-do-i-consume-the-json-post-data-in-an-express-application
+[code]
+var express = require('express')
+  , bodyParser = require('body-parser');
+var app = express();
+app.use(bodyParser.json());		//express,app.use(body-parser.json())
+router.post('/test', function(request, response){
+  console.log(request.body);		// your JSON
+  response.send(request.body.name);	// echo the result back
+  response.send(request.body);		// echo the result back
+});
+
+nodejs-Express接受Form数据 (HTTP): >>node.js-Express 接受处理 post 4种方式提交参数:http://yijiebuyi.com/blog/90c1381bfe0efb94cf9df932147552be.html
+-req.body.fieldname
+nodejs-Express发送JSON数据 (HTTP)
+http://yijiebuyi.com/blog/8221eb14c8482e7efd1868946e99ea7c.html node.js post json格式数据到服务器的几种方法
+using request Module:https://stackoverflow.com/questions/24186630/nodejs-express-make-get-request
+https://stackoverflow.com/questions/9577611/http-get-request-in-node-js-express
+
+
+[TEST]
+[OK] 1.POSTMAN(chrome-chrome://apps): get "/", see what response data(body) 
+[OK]1.POSTMAN: post "/" + JSON data, see JSON response; (consuming JSON & repond JSON done)
+-var jsondata={"name":"chen","age":"11","sex":"male"})
+-var jsondata={"data":{"name":"chen","age":25}}: 后端express-bodyParser解析后, req.body.data.name获取到chen.
+
+[ongoing] 2.SearchPAGE: query JSON, query Result from Mongo;
+[ongoing] 3.SearchPage empty fields

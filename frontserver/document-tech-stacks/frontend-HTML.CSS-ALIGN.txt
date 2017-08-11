@@ -1,0 +1,69 @@
+how to put elements on one line
+https://stackoverflow.com/questions/9067892/how-to-align-two-elements-on-the-same-line-without-changing-html
+#element1 {display:inline-block;margin-right:10px;} 
+#element2 {display:inline-block;} 
+
+元素排成一行 
+- <div class="row">会照成超出栅格系统col-md-x,col-md-offset,-pull(在微调中不建议使用) 不对齐的bug
+- <div class="form-inline>; 或者form-control补丁
+.form-control-xxx {
+    width:200px;
+    display:inline;//display:block
+} //https://segmentfault.com/q/1010000003823123
+上下间隔可以设置 margin; 空格: &nbsp
+>>更多
+元素对齐是CSS中最常见的问题之一，控制元素对齐的属性包括text-align, verticle-align, margin, line-height等. 本文便来探讨inline元素的对齐行为，以及text-align和verticle-align的使用方法，并给出实例。
+http://harttle.com/2015/06/17/css-alignment.html
+
+
+align bottom
+Relative+absolute positioning is your best bet:
+https://stackoverflow.com/questions/585945/how-to-align-content-of-a-div-to-the-bottom
+
+HTML- Select height in Bootstrap 3
+==>class="form-control imput-sm"; https://stackoverflow.com/questions/18475556/select-height-in-bootstrap-3
+==><select class="form-control" id="items" name="items" size="5" multiple>
+	<option value="<?php echo "sizeX"> itemX </option>
+   </select>
+
+[ALIGN]
+example perfect: check PROJECT-295 detail page
+	<div class="container">
+                        <div align="center" style="width: 65%; height: 350px; float: left; border-style: dotted; border-color: green; margin: 0 auto">
+                            <img src=<%= created.image[i]%> style="height: 350px; width: auto;" alt="Slide">
+                        </div>
+                        <!-- <img src="img/h4-slide.png" alt="Slide"> -->
+                        <div style="width: 35%; height: 350px; float: left;  display: flex; justify-content: center; align-items: center;  overflow: auto; border: 5px; border-style: dotted; border-color: red; word-wrap: break-word;">
+                        <div class="" style="text-align: center; word-wrap: break-word;  overflow: auto; border: 5px; border-style: dotted;">
+                            <h2 class="caption title">
+                                <%= created.bedroom%>Bedroom <span class="primary" style="color: #1bd172"> <%= created.type.toUpperCase()%><strong> Title: <%= created.title%></strong></span>
+                            </h2>
+                            <h4 class="caption subtitle">Rent: $<%= created.price%></h4>
+                            <a class="caption button-radius" href="#"><span class="icon"></span>Fraud Report</a>
+                        </div>
+                        </div>
+         </div>
+
+1) text-align
+2) That will not work as the text-align property applies to block containers, not inline elements, and img is an inline element. See the W3C spec.
+Use this instead:
+img.center {
+    display: block;
+    margin: 0 auto;
+}
+https://stackoverflow.com/questions/7055393/center-image-using-text-align-center
+3) verticle center: vertically-centering-a-div-inside-another-div
+https://stackoverflow.com/questions/6490252/vertically-centering-a-div-inside-another-div
+4) div align="center" 
+5) how to put two div side by side
+==>check https://stackoverflow.com/questions/15374918/how-to-put-two-div-boxes-side-by-side
+==>check PROJECT-295 detail.ejs
+https://stackoverflow.com/questions/8865458/how-do-i-vertically-center-text-with-css
+https://www.w3.org/Style/Examples/007/center.en.html
+6) text too long cannot fit: should limit the length(final solution-important, check www.amazon.com)
+wrap text
+https://stackoverflow.com/questions/15409429/how-to-limit-text-width
+s.trunc(5);
+https://stackoverflow.com/questions/1199352/smart-way-to-shorten-long-strings-with-javascript
+function user-defined
+https://stackoverflow.com/questions/7196804/replace-too-long-strings-with

@@ -1,0 +1,19 @@
+logos
+https://s3-us-west-2.amazonaws.com/cmpe295housing/logo-line1.png
+https://s3-us-west-2.amazonaws.com/cmpe295housing/logo-grass1.png
+https://s3-us-west-2.amazonaws.com/cmpe295housing/logo-fly1.png
+
+
+
+detail page: logo
+
+header page: background image -logo image( safeHome)
+==>background image: https://www.w3schools.com/css/css_background.asp 
+		</style>body {
+		    background-image: url("gradient_bg.png");
+		    background-repeat: repeat-x;
+		}
+		</style>
+
+report page: logo
+(opt)delete file-test

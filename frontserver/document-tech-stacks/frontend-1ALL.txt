@@ -1,0 +1,155 @@
+[前端模板]
+0.TEMPLATE: jet.com; wangye moban zhijia
+0.boostrap offcial
+crousal
+1.startbootstrap
+https://startbootstrap.com/template-categories/all/
+https://blackrockdigital.github.io/startbootstrap-sb-admin/
+https://blackrockdigital.github.io/startbootstrap-portfolio-item/ (listing detail)
+2.模板之家
+电子商城
+http://www.cssmoban.com/tags.asp?n=%E5%95%86%E5%9F%8E
+http://www.cssmoban.com/cssthemes/6373.shtml
+
+
+
+★如何查看网站源代码并移植(特别是css):trulia
+-如何利用不同浏览器查看源代码:http://zh.wikihow.com/%E6%9F%A5%E7%9C%8B%E6%BA%90%E4%BB%A3%E7%A0%81
+http://jingyan.baidu.com/article/3f16e003a87f282590c10347.html
+-chrome 源代码查看; 开发者工具(查看自己的页面开始): 开发者工具 教程 http://wiki.jikexueyuan.com/project/chrome-devtools/debugging-javascript.html
+-如何查看链接http://jingyan.baidu.com/article/d3b74d64e329231f77e609d3.html
+
+
+【HTML/CSS】
+page title: when include the header having the title
+
+<a href="/register" class="btn btn-link"></a>
+
+dropdown, 无法显示选中选项(dropdown show selected item); 
+-或者下拉框一般用select吗
+-stackoverflow: 
+https://stackoverflow.com/questions/18150954/how-can-i-render-a-list-select-box-dropdown-with-bootstrap
+https://stackoverflow.com/questions/13437446/how-to-display-selected-item-in-bootstrap-button-dropdown-title
+http://jsfiddle.net/cmcculloh/xnpf1rr9/  http://jsbin.com/kejuxohuno/edit?html,js,output
+
+
+
+[HTML-input]
+HTML- input type="file( upload)" element, 
+
+HTML- input type="date" element, 
+
+HTML- input type="number" element
+https://www.w3schools.com/tags/att_input_accept.asp
+<form action="/action_page.php">
+  <input type="file" name="pic" accept="image/*">	//filter: select only image files
+  Select images: <input type="file" name="img" multiple>	//select multiple files
+  <input type="submit">
+</form>
+
+HTML- <input> type Attribute's value list
+https://www.w3schools.com/tags/att_input_type.asp
+
+
+HTML- <input> attribute list
+https://www.w3schools.com/tags/tag_input.asp
+
+
+How to make HTML element looks Bootstrap Style 
+<div class="checkbox">
+  <label><input type="checkbox" value="">Individual</label>
+</div>
+
+HTML- How to include a template page
+	add template file https://mcuoneclipse.com/2014/09/14/how-to-add-existing-files-to-eclipse-projects/
+	check html, change link to css, import css(head),js,image folder
+	check template folder, make sure all files css/font include
+	*caution: render called inside which route is important: may cause NOT render problem: app.use("/detail",  express.static(__dirname + '/app/detail'));
+	app.use("/post",  express.static(__dirname + '/app/detail'));
+	*pay attention to "Never Mind the relative address(see PROJECT-295)": app.use("/fonts",  express.static(__dirname + '/app/detail/fonts')); //
+
+
+
+
+[JS]
+JS取页面元素值
+<input type='text' id='name' value=123 ind='1'>
+-<script>var value = document.getElementById("input1").value; alert(value);</script>
+-$("#name").val();		//Jquery http://www.cnblogs.com/itdream/archive/2012/05/31/2528345.html
+-$("#name").attr("ind");	//Jquery 获取input标签的属性内容nd的值 https://my.oschina.net/wangwang110/blog/14009
+
+
+front-end template-upload file
+==> https://bootsnipp.com/snippets/featured/bootstrap-drag-and-drop-upload
+front-end**: post page-how to dynammic add upload button when chosed one file 
+==> https://bootsnipp.com/snippets/a27rx
+
+[[JS-DOCUMENT-DOM]]
+ function loadScript() {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "http://maps.google.com/maps/api/js?sensor=false&callback=initialize";
+      document.body.appendChild(script);
+    }
+    window.onload = loadScript;
+https://stackoverflow.com/questions/5100324/how-to-get-the-google-map-based-on-latitude-on-longitude
+[[JS-DOCUMENT-DOM]]
+https://www.w3schools.com/jsref/dom_obj_fileupload.asp
+Access an Input FileUpload Object
+Create an Input FileUpload Object
+
+
+
+
+text area 高度宽度自适应
+<!-- <textarea class="comments" style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;"></textarea>   -->
+http://www.cnblogs.com/jice/archive/2011/08/07/2130069.html
+http://www.w3school.com.cn/tags/tag_textarea.asp
+
+
+
+
+upload file(one line, but auto add more lines, maximum 5)
+<label class="control-label">Select File</label>
+<input id="input-7" name="input7[]" multiple type="file" class="file file-loading" data-allowed-file-extensions='["csv", "txt"]'>
+http://plugins.krajee.com/file-basic-usage-demo#basic-example-8
+
+
+
+font-family list
+15 Best Web Safe Fonts That Work With HTML & CSS
+https://www.w3.org/Style/Examples/007/fonts.en.html
+https://websitesetup.org/web-safe-fonts-html-css/
+
+front color picker
+https://www.w3schools.com/colors/colors_picker.asp
+
+
+
+[[small trick]]
+image mouseover hint: <img src="smiley.gif"  title="Smiley face"/>
+https://stackoverflow.com/questions/12105214/display-text-on-mouseover-for-image-in-html
+
+click button action/link
+https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link
+-<form> wrapper
+-function: onclick()
+-function: angular funcion: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_loc_href_set
+-location href
+
+<p>Click the button to set the href value to http://www.cnn.com.</p>
+<button onclick="myFunction()">Take me to CNN.com</button>
+<script>
+function myFunction() {
+    location.href = "http://www.cnn.com";
+}
+</script>
+
+
+
+Select Item not styled(when using class="form-control") in Firefox/Safari on OS X
+https://stackoverflow.com/questions/20366166/bootstrap-3-styled-select-dropdown-looks-ugly-in-firefox-on-os-x
+I used the CSS below to hide the drop down arrow  https://stackoverflow.com/questions/19407332/how-to-hide-drop-down-arrow-in-ie8-ie9
+
+
+

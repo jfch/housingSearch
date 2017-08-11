@@ -1,0 +1,23 @@
+nodejs/js asychronous
+1.which lines is asyc excuted? 
+system IO (IO without callback will cause PROBLEM); settimeout; asychronous are few(mainly IO); functions with callback maybe or may not 
+2.which lines is syc excuted
+functions without callback is definitely syc; EXCEPT settimeout(WILL NOT WAIT to execute the settimeout, go next);
+
+example: 281-labs-5 (04seq-05asy-06callback)
+example: project-295b, multiple images upload in project and efficiency (will not impact and the experiment shows so. because need to wait all uploaded, however it depends on the server throughput(req/sec), actually be fast ; it do not depend on client or the client the socket numbers),CORRECT answer:https://stackoverflow.com/questions/21184340/async-for-loop-in-node-js 
+https://blog.phoenixlzx.com/2014/05/19/for-loop-in-async-function-with-async-in-it/
+https://stackoverflow.com/questions/45178242/how-can-i-get-the-url-after-all-images-are-saved-in-s3-using-nodejs
+example: settimeout output, 
+function test() {
+    for (var i = 0; i < 10; i++) {
+        console.log(new Date);
+        setTimeout(function(){}, 2000);	//睡眠2秒，然后再进行一下次for循环打印
+    }
+};
+test(); // check out https://cnodejs.org/topic/533d6edbc2621e680800e0ea
+doc: 理解 Node.js 异步编程: loop query event queue in
+https://faceair.me/2014/09/15/%E7%90%86%E8%A7%A3%20Node.js%20%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/
+doc: nodejs 中的异步存在吗
+https://github.com/htoooth/htoooth.github.io/issues/1
+doc: IO 操作是另外的通信线程来实现的，通信线程操作结束后会将执行原始回调函数的引用加入到 JavaScript 事件队列中，JavaScript 虚拟机因为一直在轮询这个事件队列，会发现这个事件并完成后续的处理。对于 Node.js 应用而言，它是部分多线程，即非阻塞IO为多线程，但IO 结果的处理还是单线程执行. 

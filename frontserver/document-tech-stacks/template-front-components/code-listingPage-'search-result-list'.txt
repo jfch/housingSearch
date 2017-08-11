@@ -1,0 +1,36 @@
+ <div class="" style="margin-top: 10px; height: 160px"><!-- body: search result: items -->
+                <div class="" style="width: 17%; height: 160px; float: left;  display: flex; justify-content: center; align-items: center; background-color: green "> 
+                    <div><img src="img/status-safe-2.png" style="height: 120px; width: auto; border:1px solid black"></div>
+                </div>
+                <div class="" style="width: 58%; height: 160px; float: left;"> 
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 20px; color: #595959">{{.Type+.Bedroom+.Bath}}</label></div>
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 15px; color: #595959">{{address, city, state}}</div>
+                    <div style="margin-left: 15px;"><img src="img/status-ongoing.png" style="height: 45px; width: auto;">status mark</div>
+                    <div style="margin-left: 15px; margin-top: 5px"><img src="img/rating-2.png" style="height: 36px; width: auto;">rating mark</div>
+                </div>
+                <div align="right" class="" style="width: 25%; height: 160px; float: left; "> 
+                    
+                    <div><label color="" style="font-family: verdana; font-size:18px; margin-top: 7px;">$123.00{{price}}</div>
+                    <div style="margin-top: 7px;"><button type="button" class="btn btn-success" style="font-family: arial Narrow; font-size: 20px; width: 200px; height: 40px"><strong>Detail</strong></button></div>
+                    <div><label color="" style="font-family: arial; font-size:12px; margin-top: 7px;">Available on <strong>{{date}}</strong></label></div>
+                </div>
+            </div>
+            <div style="border-top: #e6e6e6 solid; border-width: 1px; margin-top: 12px"> </div><!-- body: search result: items end-->
+            <div class="" style="margin-top: 10px; height: 160px"><!-- body: search result: items -->
+                <div class="" style="width: 17%; height: 160px; float: left;  display: flex; justify-content: center; align-items: center; background-color: green "> 
+                    <div><img src="img/status-safe-2.png" style="height: 120px; width: auto;"></div>
+                </div>
+                <div class="" style="width: 58%; height: 160px; float: left;"> 
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 20px; color: #595959">{{.Type+.Bedroom+.Bath}}</label></div>
+                    <div style="margin-left: 15px;"><label style="font-family: Arial Narrow; font-size: 15px; color: #595959">{{address, city, state}}</div>
+                    <div style="margin-left: 15px;"><img src="img/status-safe.png" style="height: 50px; width: auto;">status mark</div>
+                    <div style="margin-left: 15px; margin-top: 5px"><img src="img/rating-2.png" style="height: 36px; width: auto;">rating mark</div>
+                </div>
+                <div align="right" class="" style="width: 25%; height: 160px; float: left; "> 
+                    
+                    <div><label color="" style="font-family: verdana; font-size:18px; margin-top: 7px;">$123.00{{price}}</div>
+                    <div style="margin-top: 7px;"><button type="button" class="btn btn-success" style="font-family: arial Narrow; font-size: 20px; width: 200px; height: 40px"><strong>Detail</strong></button></div>
+                    <div><label color="" style="font-family: arial; font-size:12px; margin-top: 7px;">Available on <strong>{{date}}</strong></label></div>
+                </div>
+            </div>
+            <div style="border-top: #e6e6e6 solid; border-width: 1px; margin-top: 12px"> </div><!-- body: search result: items end-->

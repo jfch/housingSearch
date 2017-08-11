@@ -1,0 +1,116 @@
+How to determine posted data is 'form-data' or 'www-form-urlencoded'
+==>project-295b, req.get('content-type')
+==>MIME类型
+一种通知客户端其接收文件的多样性的机制:文件后缀名在网页上并没有明确的意义。因此，使服务器设置正确的传输类型非常重要，所以正确的MIME类型与每个文件一同传输给服务器。在网络资源进行连接时，浏览器经常使用MIME类型来决定执行何种默认行为。
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+http://elf8848.iteye.com/blog/244016
+
+
+***
+前台如何将form和fileupload 作为form/json发出去?
+-NEVER will be multi form -binary
+
+
+Upload multiple files with FormData using AngularJS and Asp.Net MVC
+https://stackoverflow.com/questions/32160662/upload-multiple-files-with-formdata-using-angularjs-and-asp-net-mvc
+youtube视频: AngularJS -- Upload Multiple Files With Form Data Part 6 (Saving form data)
+https://www.youtube.com/watch?v=9scKv3iz8Zw
+
+***
+
+[FRONTEND SEND REQUEST DATA]
+*How to upload file using submitting <form>? -how to use Angular to submit the form
+=>post ways-using <form>: 0. example ??? <form enctype="multipart/form-data">??? video example??? multiparty example???
+			1. <form>: www-form-urlencoded; 2.<form enctype="multipart/form-data">: form-data; 3.json
+			<form action="/url" method= name= enctype= reset()>; see more on https://juejin.im/entry/58faf918570c350058d497b4
+			form itself's value, console.log(document.forms['form1']); or. <form id="form" name="form1"> var form = document.getElementById("form"); 
+			form elements' value, form.elements['elementname'] or. form.elments[0]; if same name, return array-all
+			form element attribute, type, name, value(submit2server)... tabIndex, disabled, form: 指向当前字段所属表单的指针；
+			submit form, <button type="submit">submit</button> or. <input type="submit" value="submit"> 
+			x-reset form, <input type="reset" value="reset"> or. var formId = document.getElementById("form"); formId.reset();
+			x-autofocus, <input type="text" name="radio2" autofocus/> or.			
+=>post ways-ajax form-file
+HTML: <input type="file" id="profpic" />
+JS: var file = $("#profpic")[0].files[0];
+https://stackoverflow.com/questions/44041665/how-to-put-image-in-json-as-data
+video:Upload Image without using Form Submit in PHP with Ajax
+https://www.youtube.com/watch?v=ut-NcYgFRKI
+<input type="text" name="description">
+<input type="file" name="image" accept=".jpg">
+https://stackoverflow.com/questions/30512287/submit-form-including-file-upload-via-jquery-ajax
+Uploading both data and files in one form using Ajax?(284 vote)
+https://stackoverflow.com/questions/10899384/uploading-both-data-and-files-in-one-form-using-ajax
+Uploading files/image with Ajax & Jquery, without submitting a form, May 19, 2015 Ishank Gupta
+http://blog.w3villa.com/websites/uploading-filesimage-with-ajax-jquery-without-submitting-a-form/
+=>post ways-AngularJS within ng-submit form 
+Angular File Upload, a beautiful UI example:
+https://github.com/nervgh/angular-file-upload
+
+How do I get the selected file in my controller? <input type="file" ng-model="vm.uploadme" /> But after selecting a file, in controller, $scope.vm.uploadme is still undefined.
+https://stackoverflow.com/questions/17063000/ng-model-for-input-type-file
+https://stackoverflow.com/questions/31404502/upload-multiple-files-in-angular
+
+
+[BACKEND HANDLE/CONSUME]
+*How to consume the form data with file upload?-can the submit data to be JSON
+*search "nodejs consume form data file upload" "nodejs consume form data multiple file upload"
+
+-form data 也是比较常用的提交数据的方式,这种提交方式一般用在文件上传,form表单里需要有enctype 标识(enctype="multipart/form-data").
+
+methods to save file upload to file system using node.js: 
+1.express中间件multer模块 (some bug)（此效率最高，在express3.x原生支持，到了express4.x独立成一个模块了）
+2.使用multiparty模块实现 (saving to s3 available)（此方法比较普遍）
+3.使用formidable插件实现（插件呢，就是简单易懂）
+4.connect-multiparty模块（但现在官方不推荐）
+http://www.cnblogs.com/pingfan1990/p/4701355.html
+https://stackoverflow.com/questions/23114374/file-uploading-with-express-4-0-req-files-undefined (200 votes)
+
+0.bodyParser
+当我们上传文件时 post 一个 Multiparty 类型form , 以前有个专门的中间件来处理,名叫 formidable,但是现在 bodyParser  和 formidable 早已合并,也就是说 bodyParser 完全可以处理  multiparty 类型 post  form 
+http://yijiebuyi.com/blog/65192e2b930f90fa7e1a5b7ec67665cb.html
+
+1.multer 有坑
+2.multiparty
+http://www.cnblogs.com/pingfan1990/p/4701355.html
+https://www.ctolib.com/wuwanyu-formidable_multiparty_demo.html
+https://github.com/pillarjs/multiparty/blob/master/examples/upload.js
+
+mutilparty parse results: res.json(obj); //obj={} is constructed from example code from official site
+{"ltitle":["a3"],"lbody":["a33"],
+"files":[
+{"fieldName":"files","originalFilename":"node.pdf",
+"path":"/tmp/r-vNTAvB6a1EcY8rEpSfw5NL.pdf",
+"headers":{"content-disposition":"form-data; name=\"files\"; filename=\"node.pdf\"",
+"content-type":"application/pdf"},
+"size":595807},
+{"fieldName":"files","originalFilename":"download.png",
+"path":"/tmp/YZ28ZdZSOeVrwBvrrK60m_1V.png","headers":{"content-disposition":
+"form-data; name=\"files\"; filename=\"download.png\"","content-type":"image/png
+"},"size":2041}]}
+
+3.使用formidable插件实现(automatically save to disk) http://www.cnblogs.com/yuanke/p/5221853.html
+
+formidable - processing multiple files/images
+https://itbilu.com/nodejs/npm/41vWPhuEb.html
+http://www.cnblogs.com/pingfan1990/p/4701355.html example2:form.parse(req, function(err, fields, files) {
+      res.writeHead(200, {'content-type': 'text/plain'});
+      res.write('received upload:\n\n');
+      res.end(util.inspect({fields: fields, files: files}));
+    });
+https://www.ctolib.com/wuwanyu-formidable_multiparty_demo.html
+
+Very useful
+RAW js- processing multipart/form-data with file upload
+multipart/form data content format and how to parse it using JS
+https://itbilu.com/nodejs/core/VkK5RCoXW.html
+
+
+4. connect-multiparty (deprecated)
+专门处理此类post数据相关的依赖包.github官方地址: https://github.com/andrewrk/connect-multiparty(I actually recommend against using this module. It's cleaner to use the multiparty API directly. This middleware will create temp files on your server and never clean them up. Thus you should not add this middleware to all routes; only to the ones in which you want to accept uploads. )
+npm install connect-multiparty 
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+app.post('/formdata',multipartMiddleware, function (req, res) {
+  console.log(req.body);
+  res.send(req.body);
+}); http://yijiebuyi.com/blog/90c1381bfe0efb94cf9df932147552be.html

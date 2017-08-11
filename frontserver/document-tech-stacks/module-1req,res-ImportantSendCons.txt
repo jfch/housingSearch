@@ -1,0 +1,321 @@
+nodejs 接受和发送JSON数据 代码
+
+**what do it mean ? request - json:true
+
+**angular get the render variable is obj; while the ejs get is string
+<%- varaible%> <%= %>
+
+
+**EXPRESS-nodejs kernel**(Extremely IMPORTANT)
+error handling:  http://expressjs.com/en/guide/error-handling.html
+middle
+app=connect(); http.createServer(app).listen(3000);
+app.use(); app.get(); app.post();
+rounter.get();
+function(req,res,next): rep parameter(PDF)
+http://expressjs.com/zh-cn/guide/using-middleware.html
+https://nkcoder.github.io/2016/08/20/express-tutorial-basic/
+res.json(small);  //will send immediately; 
+res.render('main.ejs', {
+               data: JSON.stringify(data, null, 4);
+            }); // https://stackoverflow.com/questions/38365084/error-cant-set-headers-after-they-are-sent-express-js
+response.body ===> body
+return next(error); return next(); next();
+fully understand this code(especially, the page().each(function)): 
+is page function: yes; is each function: yes;//https://www.w3schools.com/jquery/misc_each.asp function is callback: yes
+https://stackoverflow.com/questions/38365084/error-cant-set-headers-after-they-are-sent-express-js
+	app.get('/', function(req, res) {
+	    request(url, function(err, response, html) {
+		if (!err && response.statusCode == 200) {
+		    var page = cheerio.load(html);
+		    var data = [];
+		    page('.search-result-description').each(function() {
+			var name = page(this).find('.search-result-item__head');
+			var company = page(this).find('.search-result-item__company');
+			var description = page(this).find('.search-result-item__snippet');
+			var requirements = page(this).find('.search-result-item__snippet');
+			var salary = page(this).find('.b-vacancy-list-salary');
+
+			data.push({
+			    vac_name: name.eq(0).text(),
+			    vac_description: description.eq(0).text(),
+			    vac_requirements: requirements.eq(0).text(),
+			    var_company: company.eq(0).text(),
+			    vac_salary: salary.eq(0).text()
+			});
+		    });
+		    res.render('main.ejs', {
+		       data: JSON.stringify(data, null, 4);
+		    });
+		}
+	    });
+	});
+
+err: cannot set header after sent; 
+==>check this out:https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client; https://stackoverflow.com/questions/38365084/error-cant-set-headers-after-they-are-sent-express-js
+err: nodejs cannot find  json file(s3.json /)
+==>require('rootpath')();
+err: post page refresh error -> "err: cannot set header after sent"
+
+*(important example-send request)
+/*return res.redirect(url.format({
+         pathname:"/detail/show",
+         query: {
+            "created": JSON.stringify(j.created),
+            "info":"newly created listing"
+          }
+     }));  */
+
+
+
+
+---
+*(EXTREMELY Important)nodejs-backend basics
+[nodejs hello world and details] package.json and so on
+https://yasicyu.com/newarticle/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BANodeJs%E6%9C%8D%E5%8A%A1%E5%99%A8
+http://coderlt.coding.me/2016/03/16/http-server-nodejs/
+[nodejs router's func(req,res) JSON exchange interface]
+req parameters:https://itbilu.com/nodejs/npm/41wCi_C3e.html
+res parameters:https://itbilu.com/nodejs/npm/Vkp32gJpg.html
+
+[req, res, res.render()]
+handle and response JSON example1: 
+ =>backend: var obj ={}; res.send(obj); or. res.json(obj); frontend: var j=JSON.parse(body); console.log(j.lbody[0]);//then we can parse
+handle and response JSON example2: https://stackoverflow.com/questions/19696240/proper-way-to-return-json-using-node-or-express
+ =>backend:res.setHeader('Content-Type', 'application/json');
+ =>backend:res.send(JSON.stringify({ a: 1 }));
+handle and response JSON example3:(PROJECT-295)
+ =>backend:res.setHeader('Content-Type', 'application/json');
+ =>backend:res.send(JSON.stringify({ created: small, recommend: docs }));
+ =>frontend:var j=JSON.parse(body); console.log(j.created.address.lat);
+(important)**JSON sent must be string. so use stringify();
+
+[frontend page GET data from res.render()]
+ejs hello world
+==> <%= created %> 1) res.render('detail', {created: req.query.created, recommend: body}); 0)res.send(JSON.stringify({ recommend: docs }));
+==> <%= JSON.parse(created).type %>
+==> consume json data in <script>
+<script type="text/javascript">
+    function codeAddress(){ 
+         var data = <%- jsonData %>;
+         document.write(JSON.stringify(data)); 
+    }
+</script>
+OR.  <%- JSON.stringify(user) %> //The <%= will render in HTML, the <%- will render variables (as they are, eval)
+https://stackoverflow.com/questions/31889807/how-to-display-the-json-data-in-ejs-template
+https://stackoverflow.com/questions/13788314/express-and-ejs-to-render-a-json
+
+
+angular.js get data(check 281-menudetail.ejs); check it out: https://www.w3schools.com/angular/angular_scopes.asp
+(important**)
+==>alert(<%- created %>); //1) Angular converted it to object 2) '-' NOT '='
+==>usage 1:  $scope.created = JSON.stringify(<%- created %>); 
+==>usage 2:  $scope.created = <%- created %>; <body> {{created.title}}</body>
+
+angular.js with JSON.parse and stringify
+https://jsfiddle.net/29y61wtg/5/
+
+[frontend page- put different same number of elements with passed in data using Angularjs]
+==>example1 (tested)
+ <div>
+    <% 
+    var created = JSON.parse(created); 
+    for(var i in created.image) 
+    {     
+    %>
+        <div class="col-md-10 panel panel-default" style="margin-bottom: 15px;" >
+        <b><a href=<%= created.image[i]%>> picture <%= i%></a></b>
+        <p  id="username1">username</p>
+        </div>
+    <% 
+    }  
+    %>
+ </div>
+
+ <div >            
+   <div ng-repeat="image in created.image">
+   <div class="panel panel-default" style="margin-bottom: 15px;" >
+      <b><a href={{image}}>pic</a></b>
+      <p  id="pic">{{image}}</p>
+      <button class="btn btn-primary ">reply</button>
+      <button class="btn btn-primary " data-toggle="modal" data-target="#myModal" ng-click="get_tweet(x)" onclick="">retweet</button>
+   </div>                               
+   </div>            
+ </div>
+
+
+==>example2 (check 273-userhome.ejs)
+<html ng-app="myApp" ng-controller="myCtrl" ng-init="info">
+<script>
+	var app = angular.module("myApp", []);
+	app.controller("myCtrl", function($scope) {   
+	    $scope.firstName = "John";
+	    $scope.lastName = "Doe";
+	    $scope.info = <%- JSON.stringify(posts) %>; 
+	    $scope.tweet_info="";
+	    $scope.get_tweet = function(a){
+	    	alert(a.tweets);
+	    	$scope.tweet_info =a.tweets;
+	    }
+	});
+</script>
+<div>
+<% for(var i in posts) 
+	{                     
+%>
+<div class="col-md-10 panel panel-default" style="margin-bottom: 15px;" >
+<b><a href="/user/<%= posts[i].user_id %>"><%= posts[i].username %></a></b>
+<p  id="username1"><%= posts[i].tweets %></p>
+</div>
+<% 
+	}  
+%>
+</div>
+
+
+
+res.json() 
+res.redirect with json data:https://stackoverflow.com/questions/19035373/how-do-i-redirect-in-expressjs-while-passing-some-context 
+https://stackoverflow.com/questions/15872658/standardized-way-to-serialize-json-to-query-string
+https://stackoverflow.com/questions/38492269/including-json-in-node-js-res-redirect 
+1)url module, or querystring module - contrain, the url length limiation2048
+2)session (english: above; chinese:https://cnodejs.org/topic/5055c9ca98ee09042004b8c7)
+#)nested json; need to uridecode and 
+#)request send query parameter can also be simpler: https://stackoverflow.com/questions/16903476/node-js-http-get-request-with-query-string-parameters
+return res.render('register', { error: 'An error occurred' });
+res.render only work with /detail not with /detail/detail(more than one layer);(router's address would been added to css/js/ src/address)->kind of bug; 
+==>recommend: exameine same file; add following 1 lines: 
+res.redirect vs. windows.location 
+res.render together with res.sendfile(body)
+app.use("/detail",  express.static(__dirname + '/app/detail')); //app.use('/detail', require('control')) router.get('/',function()); means: http://localhost:3000/detail/ 
+xx app.use(express.static(__dirname + '/app/detail')); 
+==>https://stackoverflow.com/questions/45261311/page-can-not-be-correctly-rendered-while-the-router-changed
+==>search app.use in http://expressjs.com/en/api.html
+res.render('1.ejs', {user:obj}); ==> ejs <%= user.username=%>
+
+
+
+[directoryy]
+只有 require 的路径是相对当前文件，其他大部分函数接收的路径都是相对于「当前工作目录」即程序运行时的 cwd
+https://github.com/imsobear/blog/issues/48
+
+[nodejs basics-HTTP basic]
+https://i5ting.github.io/oh-http/
+
+[send request to server]
+1.forward the request in nodejs backend router 
+=>(*hello world)var lreq= request.post({...}); req.pipe(lreq); lreq.pipe(res); https://cnodejs.org/topic/575d32af2cf5ae906e5924c6
+=> pipe: request.get('http://google.com/img.png').pipe(request.put('http://mysite.com/img.png'))
+=>任何res/data都可以输出到文件stream/pipe =>request('http://google.com/doodle.png').pipe(fs.createWriteStream('doodle.png')) =>pipe: fs.createReadStream('file.json').pipe(request.put('http://mysite.com/obj.json')) https://segmentfault.com/a/1190000000385867
+2.request send form-data,form-encodedurl,json: 
+=>request-func(error,response,body(acctually is the response.body))
+=>request.post('http://service.com/upload', {form:{key:'value'}})
+=>	var r = request.post('http://service.com/upload')
+	var form = r.form()
+	form.append('my_field', 'my_value')
+	form.append('my_buffer', new Buffer([1, 2, 3]))
+	form.append('my_file', fs.createReadStream(path.join(__dirname, 'doodle.png'))
+	form.append('remote_file', request('http://google.com/doodle.png'))
+example:
+https://segmentfault.com/a/1190000000385867
+https://stackoverflow.com/questions/17121846/node-js-how-to-send-headers-with-form-data-using-request-module
+https://stackoverflow.com/questions/20961326/in-nodejs-request-how-to-send-file-in-a-mutlipart-http-request
+https://github.com/request/request
+3.send data to server for long processing =>set response to OK
+
+req.files.image, //Assuming that the HTML form sent a file in a field called 'image':
+req.body.title;
+https://www.npmjs.com/package/mongoose-attachments
+
+
+
+***
+how to parse JSON:https://stackoverflow.com/questions/5726729/how-to-parse-json-using-node-js?rq=1
+
+
+
+*node handle request, respond JSON with RESTFul API
+https://stackoverflow.com/questions/4696283/what-are-res-and-req-parameters-in-express-functions/4696338#4696338
+
+app.get('/user/:id', function(request, response){
+  response.send('user ' + request.params.id);
+});
+app.get('/people.json', function(request, response) {
+  // We want to set the content-type header so that the browser understands
+  //  the content of the response.
+  response.contentType('application/json');
+
+  // Normally, the would probably come from a database, but we can cheat:
+  var people = [
+    { name: 'Dave', location: 'Atlanta' },
+    { name: 'Santa Claus', location: 'North Pole' },
+    { name: 'Man in the Moon', location: 'The Moon' }
+  ];
+
+  // Since the request is for a JSON representation of the people, we
+  //  should JSON serialize them. The built-in JSON.stringify() function
+  //  does that.
+  var peopleJSON = JSON.stringify(people);
+
+  // Now, we can use the response object's send method to push that string
+  //  of people JSON back to the browser in response to this request:
+  response.send(peopleJSON);
+});
+
+http://blog.csdn.net/marujunyy/article/details/8466234
+app.post('/image', function(req, res, next) {  
+    console.log(req.body);//请求中还有参数data,data的值为一个json字符串  
+// var data= eval_r('(' + req.body.data + ')');//需要将json字符串转换为json对象  
+// console.log("data="+data.PhoneNumber);  
+    console.log(req.body.PhoneNumber);//解析json格式数据  
+    res.contentType('json');//返回的数据类型  
+    res.send(JSON.stringify({ status:"success" }));//给客户端返回一个json格式的数据  
+    res.end();  
+});  
+
+
+nodejs 创建服务器原生代码
+http://www.cnblogs.com/otlive/archive/2012/03/08/2385825.html
+
+nodejs 向返回对象中写入访问的文件内容
+http://www.cnblogs.com/otlive/archive/2012/03/08/2385825.html
+
+var fs = require("fs")
+var cotnent = fs.readFileSync("a.txt")
+app.get("/list", function(req, res) {
+    res.send(content)
+})
+把服务器上的某个文件内容显示给用户。
+http://www.tangshuang.net/3107.html
+
+express 解析post方式下的json 数据出错后的流处理
+http://yijiebuyi.com/blog/38f1437bf5b43fcf90e6529a81f258f1.html
+客户端请求接口时必须指名请求头类型 Content-Type=application/json
+bodyParser 发现这样类型的请求头后,会自动将 body 里的 json 格式数据正确解析,否则 req.body.data 为 undefined
+传统的服务器端语言可能会接收post上传的流,然后转成字符串最后在格式化成 json ,这样加不加application/json 请求头都是没有问题的.但是Express 中间件在解析body中的post参数会检查 Content-Type 类型,所以没有指定正确格式导致中间件解析参数出错.
+那如何处理呢?
+因为好多地方都在调用你的接口,你无法保证所有的人都在请求头里面加了 Content-Type=application/json 
+解决思路是:
+服务器端 先用 req.body.data 参数获取参数,如果成功,说明 bodyParser 正确解析了json 参数. 还是按照之前的方法读取.
+如果 req.body.data 参数无值或者undefined 那么我们也用流来读取post 数据,然后转成字符串再解析成 json 格式来使用. 直接上代码
+app.post('/post', function (req, res) {
+    if (req.body.data) {
+        //能正确解析 json 格式的post参数
+        res.send({"status": "success", "name": req.body.data.name, "age": req.body.data.age});
+    } else {
+        //不能正确解析json 格式的post参数
+        var body = '', jsonStr;
+        req.on('data', function (chunk) {
+            body += chunk; //读取参数流转化为字符串
+        });
+        req.on('end', function () {
+            //读取参数流结束后将转化的body字符串解析成 JSON 格式
+            try {
+                jsonStr = JSON.parse(body);
+            } catch (err) {
+                jsonStr = null;
+            }
+            jsonStr ? res.send({"status":"success", "name": jsonStr.data.name, "age": jsonStr.data.age}) : res.send({"status":"error"});
+        });
+    }
+});

@@ -1,0 +1,25 @@
+表单输入验证validate the input (必填项验证,密码输入一致性,电子邮件,通配符)(前端Jquery)
+http://html5beta.com/page/angular-form-submit-best-practice.html
+http://www.111cn.net/wy/jquery/75590.htm
+表单后端验证-mongo
+http://mongoosejs.com/docs/validation.html
+
+
+
+register.ejs -validate input***(done)
+==>	<script type="text/javascript">
+	window.onload = function () {
+		document.getElementById("password1").onchange = validatePassword;
+		document.getElementById("password2").onchange = validatePassword;
+	}
+	function validatePassword(){
+	var pass2=document.getElementById("password2").value;
+	var pass1=document.getElementById("password1").value;
+	if(pass1!=pass2)
+		document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+	else
+		document.getElementById("password2").setCustomValidity('');	 
+	//empty string means no validation error
+	}
+	</script>
+	 https://codepen.io/diegoleme/pen/surIK

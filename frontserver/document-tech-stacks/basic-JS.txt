@@ -1,0 +1,186 @@
+JS数据类型
+字符串、数字、布尔、数组、对象、Null、Undefined
+
+js-array: add method
+https://www.w3schools.com/js/js_array_methods.asp
+
+js-array: sort array
+https://stackoverflow.com/questions/1129216/sort-array-of-objects-by-string-property-value-in-javascript
+http://www.imooc.com/article/13958
+{name:"name2",price:88,date:1}].sort(function(a,b){ 
+if(a.price===b.price){ //价格相同时则按照时间排序 return a.date-b.date }
+else{ return a.price-b.price } })
+
+
+js-array: deep copy array
+var clonedArray = JSON.parse(JSON.stringify(oriArray))
+https://stackoverflow.com/questions/28482593/copying-an-array-of-objects-into-another-array-in-javascript-deep-copy
+
+
+js-array: iterate array
+1) var myStringArray = ["Hello","World"];
+var arrayLength = myStringArray.length;
+for (var i = 0; i < arrayLength; i++) {
+    alert(myStringArray[i]);
+    //Do something
+}
+2) var i = Auction.auctions.length
+                    while (i--) {
+                        ....
+                    }
+https://stackoverflow.com/questions/3010840/loop-through-an-array-in-javascript
+
+js-array: remove element from array(remove item and change the source array)
+https://davidwalsh.name/remove-item-array-javascript
+
+js-array: Looping through array and removing items, without breaking for loop
+https://stackoverflow.com/questions/9882284/looping-through-array-and-removing-items-without-breaking-for-loop
+var i = arr.length
+while (i--) {
+    ....
+}
+
+
+JSON.stringify
+JSON.parse(str);
+res.json({users: users});
+JSON.stringify turns a Javascript object into JSON text and stores that JSON text in a string.
+JSON.parse turns a string of JSON text into a Javascript object.
+https://www.w3schools.com/js/js_json_stringify.asp
+
+
+JSON of listing: https://docs.google.com/document/d/1OkL0eWVDkn2iAe1YFbCcRPVhdpcPa6Pd8NBPL8J_FJ8/edit
+JSON example:
+	LISTING OBJECT MONGO 
+	{	"__v":0,
+		"title":"4",
+		"type":"apartment",
+		"description":"4",
+		"availableOn":"2017-07-12T00:00:00.000Z",
+		"price":1,"area":22,"bedroom":1,"bathroom":1,
+		"laundry":"laundry in unit","parking":"attached garage","petOK":true,"isFurnished":true,"noSmoking":true,
+		"rating":-1,"wheelChairAccessiable":true,
+		"_id":"597006519e490f43c7164278",
+		"user":{"id":190,"email":"2@2","contactName":"","phone":""},
+		"address":{"region":"Mountain View","city":"1","state":"CA","lat":37.3697309,"lon":-121.8629855,"zipcode":"1"},
+		"image":["https://s3-us-west-2.amazonaws.com/cmpe295housing/1500513873324FireShot%20Capture%2064%20-%20Housing%20Search%20-%20file____C__Users_MyPC_Desktop_295-web%2520app_code_index.html.png"]
+	}
+	
+JS: Object.keys(files.files).forEach; ==?>return array number, or. object keys 
+=>compare to Java: for (String item : someList) {	System.out.println(item); }
+js random: floor() Get Integer, Math.floor(Math.random()*1000);
+js & mongodb: if db.field not existed, using=> if(fieldname !=undefined);
+
+js array: array.push(""); https://www.w3schools.com/js/js_arrays.asp
+js array: clear-> arr=[];
+js slice: str.charAt(0).toUpperCase() + str.slice(1);
+js string empty: str=='' or. str==undefined; 
+js string replace: str.replace('').joint('+');encodeURIComponent(fileName)https://github.com/aws/aws-sdk-net/issues/640
+js string substring: substring(from[, to]) ; slice(begin[, end]); substr(start[, length])=>http://blog.iderzheng.com/js-slice-vs-substr-vs-substring-table/
+http://www.w3school.com.cn/jsref/jsref_substring.asp
+js string toUpperCase;
+
+js operator: conditional operator->  condition? a:b;
+js type: mongoose type defined, must parseFloat()/parseInt(), Date.parse() or NO need;
+js datatypes: typeof(null)=object; typeof(undefined)=undefined; null==undefine(yes); null===undefined(no) ; Undefined, In JavaScript, a variable without a value, has the value undefined. The typeof is also undefined. variable can be emptied, by setting the value to undefined. The type will also be undefined.
+
+[some-tricks]
+js date
+https://stackoverflow.com/questions/3075577/convert-mysql-datetime-stamp-into-javascripts-date-format
+https://stackoverflow.com/questions/11591854/format-date-to-mm-dd-yyyy-in-javascript
+js assign datetime in mysql
+https://stackoverflow.com/questions/5129624/convert-js-date-time-to-mysql-datetime
+
+[js-function]
+js function invocation/call after definition
+(function() { } )(); https://www.w3schools.com/js/js_function_invocation.asp
+function(); https://stackoverflow.com/questions/6404196/can-i-name-a-javascript-function-and-execute-it-immediately
+
+js function on the right side of equal number , in depth
+https://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
+var funcs = [];
+for (var i = 0; i < 3; i++) {      // let's create 3 functions
+  funcs[i] = function() {          // and store them in funcs
+    console.log("My value: " + i); // each should log its value.
+  };
+}
+for (var j = 0; j < 3; j++) {
+  funcs[j]();                      // and now let's run each one to see
+}
+var funcs = [];
+
+function createfunc(i) {
+    return function() { console.log("My value: " + i); };
+}
+diff2
+for (var i = 0; i < 3; i++) {
+    funcs[i] = createfunc(i);
+}
+
+for (var j = 0; j < 3; j++) {
+    funcs[j]();                        // and now let's run each one to see
+}
+
+[js-callback]
+js callback example(trick) 
+callback hello world
+https://www.impressivewebs.com/callback-functions-javascript/
+function mySandwich(param1, param2, callback) {
+    alert('Started eating my sandwich.\n\nIt has: ' + param1 + ', ' + param2);
+    callback();
+}
+mySandwich('ham', 'cheese', function() {
+    alert('Finished eating my sandwich.');
+});
+
+callback in loop
+https://stackoverflow.com/questions/5602427/javascript-for-loop-callback
+
+callback hell
+var p_client = new Db('integration_tests_20', new Server("127.0.0.1", 27017, {}), {'pk':CustomPKFactory});
+p_client.open(function(err, p_client) {
+    p_client.dropDatabase(function(err, done) {
+        p_client.createCollection('test_custom_key', function(err, collection) {
+            collection.insert({'a':1}, function(err, docs) {
+                collection.find({'_id':new ObjectID("aaaaaaaaaaaa")}, function(err, cursor) {
+                    cursor.toArray(function(err, items) {
+                        test.assertEquals(1, items.length);
+​
+                        // Let's close the db​
+                        p_client.close();
+                    });
+                });
+            });
+        });
+    });
+});
+
+
+
+前后端代码区分: 
+debug时候需要重新 node server.js的代码就是后端
+前端代码是在 html页面 script包含，由浏览器运行
+
+什么是路由：
+不同路由，不同URL(路)返回不同的页面(由)/根据不同的 url 地址展示不同的内容或页面
+
+什么是前端路由：
+不同URL访问交给浏览器处理，不由服务器处理返回不同页面(什么是后端路由); 单页面SPA用到
+前后端路由应用：
+前后端路由同时存在的情况下会造成代码的混乱：干掉前端路由，其实多数情况下前端是不需要路由的；
+
+AJAX
+以前路由都是后台做的，通过用户请求的url导航到具体的html页面，前端路由就是通过配置js文件，把这个工作由前端来做，
+前端路由主要用来替代ajax，可以使页面跳转时不刷新页面且地址栏相应变化，建议你使用angularjs 2016年05月24日回答4 评论Translate编辑
+回复 em0t：
+在某些场合中，用ajax请求，可以让页面无刷新，页面变了但Url没有变化，用户就不能复制到想要的地址，用前端路由做单页面网页就很好的解决了这个问题
+
+AngularJS的应用领域
+主要带来更好用户体验,主要用于单页面
+双向数据绑定-所见及所得: Angular的核心思想之一，也是功能最强大的内容之一。
+在Angular文档中，我们看到：“在Angular网页应用中的数据绑定，是模型和视图层之间的数据自动同步。”这意味着，我们需要在表单中抓取数据，使用$('input[name=name]').val()并不是必需的。我们在Angular中将数据和变量绑定在一起，无论是javascript也好，view也罢，只要有改变，两者皆变。
+$scope：控制器Control和视图层View之间的粘合剂。基本上，变量使用$scope从我们的控制器和视图层之间传递和往来。具体详细的定义，请参见文档。
+$http：Angular服务来帮助我们处理POST请求。更多信息，请参见文档。
+为了演示数据绑定，我们需要获取表单的input来自动填充变量formData。让我们回到应用于页面的Angular控制器中。我们在过一下$scope和$http。
+https://www.oschina.net/translate/submitting-ajax-forms-the-angularjs-way
+

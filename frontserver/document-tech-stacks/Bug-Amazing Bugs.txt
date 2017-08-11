@@ -1,0 +1,46 @@
+Amazing BUGs 401
+
+**config.json: Unexpected token //can not be opened by Eclipse
+
+**page reload its url automatically second time(recommendation less than 6 -backend send array size less than number(6) required by ejs-recommendation module : overlowrequired on the detail page)
+
+
+404 not found
+==> router / no page
+401 status code
+=>
+
+
+data type which is at right side after colon type
+-Mongoose find query error
+
+google map: lat: obj; //strange post url error
+
+dont use same variable name in "var data = <%- jsonData %>;" //ejs bug
+==> consume json data in <script>
+<script type="text/javascript">
+    function codeAddress(){ 
+         var data = <%- jsonData %>;
+         document.write(JSON.stringify(data)); 
+    }
+</script>
+
+
+[Performance-Jmeter: Database]
+Error: too many connections
+SET GLOBAL max_connections = 5000;
+var pool = mysql.createPool({
+	    host     : 'localhost',
+	    connectionLimit : 5000,
+	    max_connections  : 1000,
+	    user     : 'safehome',
+	    password : '23001288',
+	    database : 'listinguser',
+	    port	 : 3306,
+	    supportBigNumbers: true,
+	    bigNumberStrings: true
+	});
+	return pool;
+https://dev.mysql.com/doc/refman/5.5/en/too-many-connections.html
+Error: Handshake inactivity timeout
+https://github.com/mysqljs/mysql/issues/1738

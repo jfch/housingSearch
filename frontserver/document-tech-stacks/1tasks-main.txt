@@ -1,0 +1,124 @@
+TASKs
+[hello world]/[previous-project]
+PROJECT NODE-295
+PROJECT MONGO-CRUD, How to Create a Complete Express.js + Node.js + MongoDB CRUD and REST Skeleton
+https://www.airpair.com/javascript/complete-expressjs-nodejs-mongodb-crud-skeleton
+https://github.com/kacole2/express-node-mongo-skeleton
+
+Architecture diagram
+=>nodejs, frontserver, backedn server, databse server; = 前端(浏览器)-前端服务器(cloud-aws)-后端服务器(clound-aws)的请求通讯链
+
+
+[future] something to improve
+Frontend- search page API with backend API **
+=> https://www.trulia.com/for_sale/95133_zip/0-650000_price/
+=> frontend js sort reuslts(backend db or frontedn) ; http://www.imooc.com/article/13958
+
+Frontend: narraow result-price bar**
+https://bootsnipp.com/snippets/featured/bootstrap-pricing-slider-donations beautiful interface
+https://bootsnipp.com/snippets/e3A7K; https://bootsnipp.com/snippets/00WGK
+Frontend- post.ejs**, add upload element dynamicaly
+Frontend -intelligent search ** -break words
+
+-前端: 好看UI (jet.com; wangye moban zhijia)
+-后端: 性能
+
+
+[Backend] with nodejs is easy
+-mongoose connection pool
+http://mongoosejs.com/docs/connections.html
+-create record, query this record and return/save to db return mongo json
+-data structure: mongoose model
+
+[Frontend] [task-general] https://docs.google.com/document/d/12ecFnZEdGpw5dFfQcWETUpJ_QtL5xcvtU4StcYSIDAw/edit
+Frontend -Home page
+Frontend -post-detail page[HIGHLIGHT WORK] -->working on recommendation data -->detail jump to detail
+frontend -post-fraud report req for mongo rating field update*
+
+Frontend -search-result page[HIGHLIGHT WORK]-detail-report(processing,report)-report.database -->working on result data
+
+Frongend -user signin/register/signout (mysql conn pool), signin state in every page(==>req.session, and how to save it in db ==>token)
+-create mysql database(install mysql on ec2, password, create user table;)
+-use nodejs to connect mysql db on ec2; ->use node to connect mysql db using CONNECTION POOL;
+-encrypt and pass user name and password;
+-session(security TEST -concurrent users 2), hide signin/register button;
+
+Frontend -user listing management; (optional) user profile
+==>http://www.cssmoban.com/cssthemes/6603.shtml
+==>http://www.cssmoban.com/cssthemes/6611.shtml (selected)
+
+Frontend -search result page task
+-page breaker: only limit 100 return
+-sort the results (only front end javascript enough??)
+-narrow results (only front end javascript enough??)
+-my listing(-session: logined-show user listings management pages; or. show login page )
+
+
+
+(Front end Flow Design/API)
+flow of search-result1:
+front page-form => /listing/gsearch =>dbserver:listing/gsearch - then dbserver: query limit(10) docs
+ respond: 10 docs to /listing/gsearch for render('lisintg', docs); 
+flow of search-result2:
+search page-form => /listing/advsearch =>dbserver:listing/advsearch - then dbserver: query limit(10) docs 
+ respond: 10 docs to /listing/advsearch for render('lisintg', docs); 
+
+flow of result-detail:
+search page-button action => /detail/show/:id => dbserver:detail/show/:id 
+
+flow of detail-fraudreport:
+detail page-button action  => /fraudreport		=> dbserver:/fraudreport
+detail page-button action => /fraudreport/:id	=> dbserver:/fraudreport/:id 
+http://localhost:3000/fraudreport/597a67a4bfd84b052193533f
+
+
+(Front end design - icon)
+Project-295 search result page
+-image1: ProcessingMark(-1) or. GreenMark(1-2) or. CautionMark(3-5): var statusImage=[ongoing, safe, caution]; title: [processing for fraud score, be cautious, is safe]
+-image2: RatingMark: 0(rating-empty.png);1-5(bad guys pics)
+
+
+
+
+[INFOMRATION]
+//codeLocations:: local-3folder(); git-2 folder
+C:\Users\MyPC\git\housingSearchLocal, 'local' and 'housing search' (8.8-release) folder same newest;
+//server ip
+fraud server API 1: http://54.193.92.20/api/fraud/listing/597a67a4bfd84b052193533f (test)
+front server: http://52.26.126.43:3000/
+backend/db server:
+//google drive
+https://drive.google.com/drive/u/3/folders/0B1JE37ebzfqUQnJIOWZ2cE9McGc
+
+
+[Test]:
+demo(user search-user report; user-post; user-register; )
+
+front page: 4 input, 1 error input handle 0 result()
+login
+register
+post
+search: '21', '181', '12' 
+search result
+listing-detail
+fraud report
+*user mangement
+
+fraud test cases
+http://localhost:3000/fraudreport/598105ec99c98926562e044c
+http://localhost:3000/fraudreport/59810e9f99c98926562e044e
+
+[Deployment]
+github auto deployment
+forever auto restart
+
+[Performance]
+load balancer
+
+
+
+(2017/8/1)-done
+Backend
+-change report database schema(router.post('/writereport', function(req, res, next) {)
+
+

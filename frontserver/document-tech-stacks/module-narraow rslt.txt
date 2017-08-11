@@ -1,0 +1,21 @@
+narrow results: code pattern design
+-narrow the results on product results web page : 
+
+scan all checkboxs, if(unchecked) remove item from the original array
+removed => $scope.doc
+
+*web page missing checkbox all
+
+
+[basic] angular technique
+
+angular checkbox
+-error: AngularJS checkbox model value is undefined: init it
+
+angular checkbox: ng-true-value
+https://stackoverflow.com/questions/33431591/pass-checkbox-value-to-angulars-ng-click
+
+
+angular checkbox: array[item.questId]
+https://stackoverflow.com/questions/27411826/detect-if-checkbox-is-checked-or-unchecked-in-angularjs-ng-change-event
+

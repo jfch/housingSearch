@@ -1,0 +1,5 @@
+Creating and persisting a Login session - Node.js Tutorial 18
+https://www.youtube.com/watch?v=zsOGmMuwhT4
+
+NodeJS - Cookie-Parser & Express-session - Tutorial
+https://www.youtube.com/watch?v=pyN9qEbXN0s
