@@ -10,11 +10,11 @@
 
 3.log in server-2 and run: [worspace/project-295-gener]$ forever start bin/www 
 
-4.visit the site: http://52.11.239.50:3000/app
+4.visit the site: http://52.11.239.50:3000/app <br /> 
 -web pages works
 
 5.change config file with updated dbserver ip: "awsApiUrl": "http://34.211.36.173:3100"
-rerun: forever restart server.js
+rerun: forever restart server.js <br /> 
 -all microservices worked
 
 ### note:
