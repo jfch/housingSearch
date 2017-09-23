@@ -1,5 +1,4 @@
 # housingSearch
-
 How to run the web app:
 1.aws login, 2 servers with MongoDB installed
 2.server login key file
