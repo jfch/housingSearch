@@ -1,6 +1,6 @@
-# housingSearch
+# Anti-Fraud Housing Search Web Application
 
-How to run the web app:
+## How to run the web app:
 
 1.aws login, 2 servers with MongoDB installed
 
@@ -17,5 +17,6 @@ How to run the web app:
 rerun: forever restart server.js
 -all microservices worked
 
-note:
+### note:
 forever list: check running services
+local: \Users\MyPC\git\housingSearch
